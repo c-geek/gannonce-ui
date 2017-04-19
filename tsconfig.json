@@ -1,26 +1,27 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "declaration": false,
+    "target": "es6",
+    "module": "commonjs",
+    "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": [
       "dom",
       "es2015"
     ],
-    "module": "es2015",
-    "moduleResolution": "node",
+    "noEmitHelpers": true,
+    "importHelpers": true,
+    "noEmit": true,
     "sourceMap": true,
-    "target": "es6"
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "include": [
     "src/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
-  ],
-  "compileOnSave": false,
-  "atom": {
-    "rewriteTsconfig": false
-  }
+    "node_modules",
+    "www"
+  ]
 }

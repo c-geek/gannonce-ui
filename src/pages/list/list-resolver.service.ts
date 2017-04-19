@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
-import { co } from 'co';
+import {Injectable} from "@angular/core";
+import {Resolve} from "@angular/router";
+import {co} from "co";
 
 @Injectable()
 export class ItemsResolver implements Resolve<any> {
@@ -17,6 +17,7 @@ export class ItemsResolver implements Resolve<any> {
       });
     }
 
+    // return Promise.resolve(items)
     return co(function*() {
       return yield new Promise((res) => setTimeout(() => {
         res(items)

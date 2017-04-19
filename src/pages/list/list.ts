@@ -1,19 +1,21 @@
-import { Component } from '@angular/core';
+import {Component} from "@angular/core";
 
-import { ItemsResolver } from './list-resolver.service';
-// import { ItemDetailsPage } from '../item-details/item-details';
+import {ItemsResolver} from "./list-resolver.service";
+import {App} from "ionic-angular";
+import {ItemDetailsPage} from "../item-details/item-details";
 
 @Component({
   selector: 'page-list',
-  templateUrl: 'list.html',
+  template: require('./list.html'),
   providers: [ItemsResolver]
 })
 
 export class ListPage {
+
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
 
-  constructor(private itemsResolver:ItemsResolver/*public navCtrl: NavController, public navParams: NavParams*/) {
+  constructor(public itemsResolver:ItemsResolver, protected app: App) {
 
     this.items = [];
     itemsResolver.resolve().then((items) => {
@@ -22,9 +24,9 @@ export class ListPage {
     })
   }
 
-  itemTapped(event, item) {
-    // this.navCtrl.push(ItemDetailsPage, {
-    //   item: item
-    // });
+  itemTapped(item) {
+    this.app.getRootNav().push(ItemDetailsPage, {
+      item: item
+    });
   }
 }

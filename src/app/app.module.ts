@@ -1,3 +1,4 @@
+import './vendor';
 import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -10,9 +11,6 @@ import { ItemsResolver } from '../pages/list/list-resolver.service';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
-
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 
 const appRoutes: Routes = [
   {
@@ -47,8 +45,6 @@ const appRoutes: Routes = [
     ListPage
   ],
   providers: [
-    StatusBar,
-    SplashScreen,
     ItemsResolver,
     {provide: APP_BASE_HREF, useValue: '/#/'},
     {provide: ErrorHandler, useClass: IonicErrorHandler}
