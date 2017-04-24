@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import {HttpModule, JsonpModule} from "@angular/http";
 import { MyApp } from './app.component';
 
 import { LoginService } from '../services/login-service';
@@ -36,6 +37,8 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    HttpModule,
+    JsonpModule,
     IonicModule.forRoot(MyApp),
     RouterModule.forRoot(appRoutes)
   ],

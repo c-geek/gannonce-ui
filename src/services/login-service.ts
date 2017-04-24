@@ -1,15 +1,23 @@
+import { co } from 'co';
 import {Injectable} from '@angular/core';
-import {AlertController, ToastController} from "ionic-angular";
+import {AlertController, LoadingController, ToastController} from "ionic-angular";
+import {Http} from "@angular/http";
+
+const ACCOUNT_URL = 'http://l:8600/account'
 
 @Injectable()
 export class LoginService {
 
   pub:string
   estIdentifie:Boolean
+  account:any
+  enoughMoney:Boolean
 
   constructor(
+    private http: Http,
     public alertCtrl: AlertController,
-    public toastCtrl: ToastController) {
+    public toastCtrl: ToastController,
+    public loadingCtrl: LoadingController) {
 
     this.pub = localStorage.getItem('pub')
     this.estIdentifie = !!this.pub
@@ -85,5 +93,24 @@ export class LoginService {
       ]
     });
     confirm.present();
+  }
+
+  reload() {
+    let loader = this.loadingCtrl.create({
+      content: "Chargement du compte...",
+      duration: 3000
+    });
+    const that = this
+    console.log(this.pub)
+
+    loader.present();
+    co(function*() {
+      const res = yield that.http.get(ACCOUNT_URL + '/' + that.pub).toPromise()
+      const body = res.json();
+      that.account = body.acc
+      that.enoughMoney = body.enoughMoney
+      console.log(that.enoughMoney)
+      loader.dismissAll();
+    })
   }
 }

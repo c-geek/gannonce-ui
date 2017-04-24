@@ -9,7 +9,9 @@ export class ProfilPage {
 
   title:string = "Mon profil"
 
-  constructor(public loginService:LoginService) {
-    console.log(this.loginService.pub)
+  constructor(
+    public loginService:LoginService) {
+
+    this.loginService.reload()
   }
 }

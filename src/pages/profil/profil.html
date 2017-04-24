@@ -10,10 +10,13 @@
     <p>
       Ce compte n'existe pas encore, car il n'a pas été créé.
     </p>
-    <p>
+    <p *ngIf="loginService.enoughMoney">
+      <button ion-button color="primary">Créer le compte maintenant</button>
+    </p>
+    <p *ngIf="!loginService.enoughMoney">
       <ion-badge class="warn">Solde insuffisant</ion-badge>
     </p>
-    <p>
+    <p *ngIf="!loginService.enoughMoney">
       Ce compte ne peut pas être créé pour le moment, car le porte-monnaie associé doit posséder au moins 1,00 Ğ1 pour réaliser cette opération.
     </p>
     <h2>Porte-monnaie associé</h2>
