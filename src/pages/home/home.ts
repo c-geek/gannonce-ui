@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'home',
   template: require('../../app/topbar.html') + require('./home.html')
 })
-export class HelloIonicPage {
+export class HomePage {
 
   title:string = "Toutes les annonces"
   announces:Array<any>

@@ -24,3 +24,7 @@ router-outlet + * {
     display: none !important
   }
 }
+
+ion-menu .scroll-content {
+  overflow: hidden;
+}
