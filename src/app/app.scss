@@ -1,3 +1,26 @@
-ion-app {
-  color: blue
+router-outlet + * {
+  width: 100%;
+}
+
+#logo {
+  display: inline;
+  height: 30px;
+  position: relative;
+  top: 9px;
+  right: 3px;
+}
+
+#logo + span {
+  line-height: 45px;
+}
+
+@media (min-width: 768px) {
+
+  #topbar {
+    margin-left: 270px;
+  }
+
+  .bar-button-menutoggle-md {
+    display: none !important
+  }
 }

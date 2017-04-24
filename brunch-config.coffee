@@ -39,6 +39,9 @@ module.exports = config:
     preCompile: () ->
       console.log("Pre-compilation: generation de ionic.css...")
       sass = require('node-sass');
+      fs = require('fs')
+      if (!fs.existsSync('www'))
+        fs.mkdirSync('www')
       return new Promise((res, rej) ->
         sass.render({
           data: '$font-path: "/fonts"; @import "ionic.build.default";',

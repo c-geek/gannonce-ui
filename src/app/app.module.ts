@@ -8,7 +8,7 @@ import { MyApp } from './app.component';
 
 import { ItemsResolver } from '../pages/list/list-resolver.service';
 
-import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
+import { HelloIonicPage } from '../pages/home/home';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
 
@@ -16,12 +16,12 @@ const appRoutes: Routes = [
   {
     path: '',
     component: HelloIonicPage,
-    data: { title: 'Heroes List' }
+    data: { title: 'Titre 1' }
   },
   {
-    path: 'theList',
+    path: 'mon_compte',
     component: ListPage,
-    data: { title: 'Heroes List' }
+    data: { title: 'Titre 2' }
   }
 ];
 

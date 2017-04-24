@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 
 import {MenuController, Nav} from 'ionic-angular';
 
-import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
+import { HelloIonicPage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 
 @Component({
@@ -13,7 +13,8 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // make HelloIonicPage the root (or first) page
-  pages: Array<{title: string, url: string, component: any}>;
+  site_pages: Array<{title: string, url: string, component: any}>;
+  perso_pages: Array<{title: string, url: string, component: any}>;
 
   constructor(
     // public platform: Platform
@@ -22,9 +23,12 @@ export class MyApp {
     this.initializeApp();
 
     // set our app2's pages
-    this.pages = [
-      { title: 'Hello Ionic', url: '/', component: HelloIonicPage },
-      { title: 'My First List', url: '/theList', component: ListPage }
+    this.site_pages = [
+      { title: 'Toutes les annonces', url: '/', component: HelloIonicPage }
+    ];
+    this.perso_pages = [
+      { title: 'Mon profil',   url: '/mon_compte', component: ListPage },
+      { title: 'Mes annonces', url: '/mes_annonces', component: ListPage }
     ];
   }
 
