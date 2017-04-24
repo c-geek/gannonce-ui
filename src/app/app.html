@@ -14,16 +14,26 @@
     <ion-content>
       <ion-list>
         <ion-item-group>
-          <ion-item-divider color="light">Sur le site</ion-item-divider>
           <button ion-item *ngFor="let p of site_pages" routerLink="{{ p.url }}" (click)="menu.close()">
             {{p.title}}
           </button>
         </ion-item-group>
         <ion-item-group>
-          <ion-item-divider color="light">Mon compte</ion-item-divider>
-          <button ion-item *ngFor="let p of perso_pages" routerLink="{{ p.url }}" (click)="menu.close()">
-            {{p.title}}
+          <ion-item-divider color="light">
+            <ion-icon name="person" item-left></ion-icon>
+            <span>Mon compte</span>
+          </ion-item-divider>
+          <button *ngIf="!estIdentifie" ion-item (click)="showPrompt()">
+            S'identifier
           </button>
+          <ng-container *ngIf="estIdentifie">
+            <button ion-item *ngFor="let p of perso_pages" routerLink="{{ p.url }}" (click)="menu.close()">
+              {{p.title}}
+            </button>
+            <button ion-item (click)="disconnect()">
+              Se déconnecter
+            </button>
+          </ng-container>
         </ion-item-group>
       </ion-list>
     </ion-content>
