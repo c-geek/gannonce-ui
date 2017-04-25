@@ -3,22 +3,40 @@
     <p>Vous êtes déconnecté. Vous pouvez néanmoins <button (click)="loginService.showPrompt()">vous reconnecter</button>.</p>
   </ng-container>
   <ng-container *ngIf="loginService.pub">
+
     <h2>Statut</h2>
-    <p>
-      <ion-badge item-left class="warn">Inexistant</ion-badge>
-    </p>
-    <p>
-      Ce compte n'existe pas encore, car il n'a pas été créé.
-    </p>
-    <p *ngIf="loginService.enoughMoney">
-      <button ion-button color="primary">Créer le compte maintenant</button>
-    </p>
-    <p *ngIf="!loginService.enoughMoney">
-      <ion-badge class="warn">Solde insuffisant</ion-badge>
-    </p>
-    <p *ngIf="!loginService.enoughMoney">
-      Ce compte ne peut pas être créé pour le moment, car le porte-monnaie associé doit posséder au moins 1,00 Ğ1 pour réaliser cette opération.
-    </p>
+
+    <!-- Compte inexistant -->
+    <ng-container *ngIf="!accountService.acc">
+      <p>
+        <ion-badge item-left class="warn">Inexistant</ion-badge>
+      </p>
+      <p>
+        Ce compte n'existe pas encore, car il n'a pas été créé.
+      </p>
+      <p *ngIf="loginService.enoughMoney">
+        <button ion-button color="primary" routerLink="/mon_compte/creer">Créer le compte maintenant</button>
+      </p>
+      <p *ngIf="!loginService.enoughMoney">
+        <ion-badge class="warn">Solde insuffisant</ion-badge>
+      </p>
+      <p *ngIf="!loginService.enoughMoney">
+        Ce compte ne peut pas être créé pour le moment, car le porte-monnaie associé doit posséder au moins 1,00 Ğ1 pour réaliser cette opération.
+      </p>
+    </ng-container>
+
+    <!-- Compte créé -->
+    <ng-container *ngIf="accountService.acc">
+      <p>
+        <ion-badge item-left color="secondary">Créé</ion-badge>
+      </p>
+      <p>
+        Ce compte est actif.
+      </p>
+      <p>
+        <button ion-button color="primary" routerLink="/mon_compte/modifier">Modifier le compte</button>
+      </p>
+    </ng-container>
     <h2>Porte-monnaie associé</h2>
     <p>
       <ion-badge item-left color="secondary">{{ loginService.pub }}</ion-badge>

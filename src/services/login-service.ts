@@ -1,20 +1,17 @@
 import { co } from 'co';
 import {Injectable} from '@angular/core';
 import {AlertController, LoadingController, ToastController} from "ionic-angular";
-import {Http} from "@angular/http";
-
-const ACCOUNT_URL = 'http://l:8600/account'
+import {AccountService} from "./account-service";
 
 @Injectable()
 export class LoginService {
 
   pub:string
   estIdentifie:Boolean
-  account:any
   enoughMoney:Boolean
 
   constructor(
-    private http: Http,
+    public accountService: AccountService,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController) {
@@ -105,9 +102,8 @@ export class LoginService {
 
     loader.present();
     co(function*() {
-      const res = yield that.http.get(ACCOUNT_URL + '/' + that.pub).toPromise()
-      const body = res.json();
-      that.account = body.acc
+      const body = yield that.accountService.getAccountInfos(that.pub)
+      that.accountService.acc = body.acc
       that.enoughMoney = body.enoughMoney
       console.log(that.enoughMoney)
       loader.dismissAll();

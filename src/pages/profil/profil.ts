@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from "@angular/core";
 import {LoginService} from "../../services/login-service";
+import {AccountService} from "../../services/account-service";
 
 @Component({
   selector: 'profil',
@@ -10,8 +11,9 @@ export class ProfilPage {
   title:string = "Mon profil"
 
   constructor(
+    public accountService: AccountService,
     public loginService:LoginService) {
 
-    this.loginService.reload()
+    loginService.reload()
   }
 }
