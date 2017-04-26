@@ -1,0 +1,16 @@
+<ion-content padding>
+
+  <h2 *ngIf="announces.length == 0">Vous n'avez aucune annonce pour le moment.</h2>
+  <ion-list id="home-list">
+    <button ion-item *ngFor="let a of announces" [routerLink]="['/announce/edit', a.uuid]">
+      <ion-avatar item-left>
+        <img src="{{ a.thumbnail }}">
+      </ion-avatar>
+      <h2>{{ a.title }}</h2>
+      <p>{{ a.desc }}</p>
+      <h3 clear item-right>{{ a.price }} Ğ1</h3>
+    </button>
+  </ion-list>
+
+  <button ion-button routerLink="/announces/new">Ajouter une nouvelle annonce</button>
+</ion-content>

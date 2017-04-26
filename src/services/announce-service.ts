@@ -10,13 +10,13 @@ const tweetnacl = require('tweetnacl')
 const tweetnaclUtil = require('tweetnacl-util')
 const base58 = require('../lib/base58')
 
-const ACCOUNT_URL = 'http://l:8600/account'
+const ANNOUNCE_URL = 'http://l:8600/announce'
+const ANNOUNCES_URL = 'http://l:8600/announces'
 
 @Injectable()
-export class AccountService {
+export class AnnounceService {
 
-  link:string
-  acc:any
+  ann:any
 
   constructor(
     private http: Http,
@@ -24,73 +24,82 @@ export class AccountService {
     private alertCtrl: AlertController,
     public keypairService: KeyPairService
   ) {
-  }
-
-  get raw() { return this.rawify(this.acc) }
-
-  get key() { return this.keypairService.key }
-
-  verifieCle() {
-    return this.keypairService.verifieCle(this.acc.pub)
-  }
-
-  ajouterLien(lien:string) {
-    this.acc.links.push(lien)
-    this.link = ''
-  }
-
-  retirerLien(lien:string) {
-    const index = this.acc.links.indexOf(lien)
-    if (index !== -1) {
-      this.link = this.acc.links.splice(index, 1)[0]
-    }
-  }
-
-  beginCreation(pub) {
-    this.acc = {
-      pub,
+    this.ann = {
+      pub: '',
       uuid: uuid.v4(),
       title: '',
       desc: '',
-      address: '',
-      logo: '',
-      links: [
+      price: '',
+      fees: '',
+      type: '',
+      stock: '',
+      images: [
       ]
     }
   }
 
-  getAccountInfos(pub:string) {
-    return this.http.get(ACCOUNT_URL + '/' + pub).toPromise()
+  get raw() { return this.rawify(this.ann) }
+
+  get key() { return this.keypairService.key }
+
+  beginCreation(pub) {
+    this.ann = {
+      pub,
+      uuid: uuid.v4(),
+      title: 'Vente de radis',
+      desc: 'Production 2017, bio, par botte.',
+      price: '100.00',
+      fees: '50.00',
+      type: 'Simple',
+      stock: '30',
+      images: [
+      ]
+    }
+  }
+
+  getAnnounce(uuid:string) {
+    return this.http.get(ANNOUNCE_URL + '/' + uuid)
+      .toPromise().then((res) => {
+        this.ann = res.json().announce
+      })
+  }
+
+  myAnnounces(pub) {
+    return this.http.get(ANNOUNCES_URL + '/' + pub).toPromise()
       .then((res) => res.json())
       .then(json => {
-        json.acc.desc = json.acc.desc.replace(/\\n/g, '\n')
+        for (let i = 0; i < json.announces.length; i++) {
+          let ann = json.announces[i];
+          ann.desc = ann.desc.replace(/\\n/g, '\n')
+        }
         return json
       })
   }
 
-  rawify(acc) {
+  rawify(a) {
     let raw = 'Version: 1\n'
-    raw += `Document: Account\n`
+    raw += `Document: Announce\n`
     raw += `Currency: g1\n`
-    raw += `Pub: ${acc.pub}\n`
-    raw += `Uuid: ${acc.uuid}\n`
-    raw += `Title: ${acc.title}\n`
-    raw += `Desc: ${acc.desc.replace(/\n/g, '\\n')}\n`
-    raw += `Address: ${acc.address}\n`
-    raw += `Logo: ${acc.logo}\n`
-    for (let i = 0; i < acc.links.length; i++) {
-      raw += `Links[${i}]: ${acc.links[i]}\n`
+    raw += `Pub: ${a.pub}\n`
+    raw += `Uuid: ${a.uuid}\n`
+    raw += `Title: ${a.title}\n`
+    raw += `Desc: ${a.desc}\n`
+    raw += `Price: ${a.price}\n`
+    raw += `Fees: ${a.fees}\n`
+    raw += `Type: ${a.type}\n`
+    raw += `Stock: ${a.stock}\n`
+    for (let i = 0; i < a.images.length; i++) {
+      raw += `Images[${i}]: ${a.images[i]}\n`
     }
     return raw
   }
 
-
-  createOrModifyAccount(accountForm:NgForm) {
-    if (!accountForm.form.valid) {
+  createOrModifyAnnounce(announceForm:NgForm) {
+    if (!announceForm.form.valid) {
       return
     }
     const that = this
-    let raw = this.rawify(this.acc)
+    let raw = this.rawify(this.ann)
     return co(function*() {
 
       try {
@@ -105,14 +114,14 @@ export class AccountService {
           sig[i] = signedMsg[i];
         }
 
-        that.acc.sig = tweetnaclUtil.encodeBase64(sig)
-        raw += `${that.acc.sig || ''}`
+        that.ann.sig = tweetnaclUtil.encodeBase64(sig)
+        raw += `${that.ann.sig || ''}`
 
-        yield that.http.post(ACCOUNT_URL, { account: raw }).toPromise()
+        yield that.http.post(ANNOUNCE_URL, { announce: raw }).toPromise()
 
-        accountForm.reset()
+        announceForm.reset()
 
-        that.router.navigate([`/mon_compte`])
+        that.router.navigate([`/mes_annonces`])
 
       } catch (e) {
         if (e._body) {

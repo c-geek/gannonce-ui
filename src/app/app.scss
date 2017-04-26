@@ -28,3 +28,28 @@ router-outlet + * {
 ion-menu .scroll-content {
   overflow: hidden;
 }
+
+account, announce_new {
+
+  textarea {
+    height: 200px;
+    border-left: 1px dashed #ddd !important;
+    padding-left: 15px !important;
+  }
+
+  .error {
+    background-color: #ffe0e0;
+    margin: 0px;
+    padding: 13px 8px 13px 12px;
+  }
+
+  .input-has-focus + .error {
+    background-color: #d9e4ff;
+    margin: 0px;
+    padding: 13px 8px 13px 12px;
+  }
+}
+
+form .input-wrapper ion-label {
+  color: #444 !important;
+}

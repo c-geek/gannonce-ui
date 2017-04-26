@@ -9,13 +9,17 @@ import { MyApp } from './app.component';
 
 import { LoginService } from '../services/login-service';
 import { AccountService } from '../services/account-service';
+import { AnnounceService } from '../services/announce-service';
+import { KeyPairService } from '../services/keypair-service';
 
 import { HomePage } from '../pages/home/home';
 import { ProfilPage } from '../pages/profil/profil';
 import { AccountPage } from '../pages/account/account';
+import { MyAnnouncesPage } from '../pages/my_announces/my_announces';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
 import {FormsModule} from "@angular/forms";
+import {AnnounceEditPage} from "../pages/announce_new/announce_new";
 
 const appRoutes: Routes = [
   {
@@ -36,6 +40,20 @@ const appRoutes: Routes = [
   {
     path: 'mon_compte/modifier',
     component: AccountPage
+  },
+  {
+    path: 'mes_annonces',
+    component: MyAnnouncesPage
+  },
+  {
+    path: 'announces/new',
+    component: AnnounceEditPage,
+    data: { creation: true }
+  },
+  {
+    path: 'announce/edit/:uuid',
+    component: AnnounceEditPage,
+    data: { creation: false }
   }
 ];
 
@@ -45,6 +63,8 @@ const appRoutes: Routes = [
     HomePage,
     ProfilPage,
     AccountPage,
+    MyAnnouncesPage,
+    AnnounceEditPage,
     ItemDetailsPage,
     ListPage
   ],
@@ -62,12 +82,16 @@ const appRoutes: Routes = [
     HomePage,
     ProfilPage,
     AccountPage,
+    MyAnnouncesPage,
+    AnnounceEditPage,
     ItemDetailsPage,
     ListPage
   ],
   providers: [
     LoginService,
     AccountService,
+    AnnounceService,
+    KeyPairService,
     {provide: APP_BASE_HREF, useValue: '/#/'},
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

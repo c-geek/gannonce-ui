@@ -118,13 +118,13 @@
                        placeholder="Tapez votre mot de passe." ></ion-input>
           </ion-item>
 
-          <ion-item [hidden]="accountService.key.ok || accountService.computingKey">
+          <ion-item [hidden]="accountService.key.ok || accountService.keypairService.computingKey">
             <ion-label>Tapez vos identifiants secrets pour déverrouiller le bouton « Valider ».</ion-label>
           </ion-item>
           <ion-item [hidden]="!accountService.key.ok">
             <ion-label>Trousseau généré correct.</ion-label>
           </ion-item>
-          <ion-item [hidden]="!accountService.computingKey">
+          <ion-item [hidden]="!accountService.keypairService.computingKey">
             <ion-spinner item-left></ion-spinner>
             <ion-label>Vérification de la clé...</ion-label>
           </ion-item>

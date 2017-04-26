@@ -1,0 +1,179 @@
+<ion-content padding>
+
+  <ion-row>
+    <ion-col col-12 col-sm-12 col-lg-8>
+      <h2 *ngIf="!announceService.ann.uuid">Création d'une annonce</h2>
+      <h2 *ngIf="announceService.ann.uuid">Modification d'une annonce</h2>
+
+      <form #accountForm="ngForm" (ngSubmit)="announceService.createOrModifyAnnounce(accountForm)" >
+        <ion-list inset>
+
+          <ion-item>
+            <ion-label>UUID</ion-label>
+            <ion-input type="text" value="{{ announceService.ann.uuid }}" disabled></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Pubkey</ion-label>
+            <ion-input type="text" value="{{ announceService.ann.pub }}" disabled></ion-input>
+          </ion-item>
+
+          <ion-label>
+            Type d'annonce
+          </ion-label>
+
+          <ion-list radio-group
+                    [(ngModel)]="announceService.ann.type"
+                    name="type"
+                    #type="ngModel">
+
+            <ion-item>
+              <ion-label>Vente simple</ion-label>
+              <ion-radio
+                value="Simple"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Enchère</ion-label>
+              <ion-radio
+                value="Auction" disabled></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Crowdfunding</ion-label>
+              <ion-radio
+                value="Crowdfunding" disabled></ion-radio>
+            </ion-item>
+          </ion-list>
+
+          <ion-item>
+            <ion-label>Prix en Ğ1</ion-label>
+            <ion-input type="text"
+                       maxlength="13"
+                       pattern="\d+(\.\d{0,2})?"
+                       [(ngModel)]="announceService.ann.price"
+                       name="price"
+                       #price="ngModel"
+                       placeholder="Tapez un prix pour cette annonce, par exemple « 10.00 »."
+            ></ion-input>
+          </ion-item>
+
+          <ion-label class="error" [hidden]="price.valid || (price.pristine && price.untouched)">
+            <span [hidden]="!price.errors || !price.errors.maxlength">Au plus 10 caractères.</span>
+            <span [hidden]="!price.errors || !price.errors.pattern">Doit être un nombre avec au plus 2 décimales.</span>
+          </ion-label>
+
+          <ion-item>
+            <ion-label>Frais en Ğ1</ion-label>
+            <ion-input type="text"
+                       maxlength="13"
+                       pattern="\d+(\.\d{0,2})?"
+                       [(ngModel)]="announceService.ann.fees"
+                       name="fees"
+                       #fees="ngModel"
+                       placeholder="Tapez un montant pour les frais annexes (expédition, taxes, ...), par exemple « 2.58 »."
+            ></ion-input>
+          </ion-item>
+
+          <ion-item >
+            <ion-label>Titre</ion-label>
+            <ion-input type="text"
+                       required
+                       minlength="10"
+                       maxlength="100"
+                       [(ngModel)]="announceService.ann.title"
+                       name="title"
+                       placeholder="Tapez l'intitulé de l'annonce."
+                       #title="ngModel"
+            ></ion-input>
+          </ion-item>
+
+          <ion-label class="error" [hidden]="title.valid || (title.pristine && title.untouched)">
+            <span [hidden]="!title.errors || !title.errors.required">Ce champ est requis.</span>
+            <span [hidden]="!title.errors || !title.errors.minlength">Au moins 10 caractères.</span>
+            <span [hidden]="!title.errors || !title.errors.maxlength">Au plus 100 caractères.</span>
+          </ion-label>
+
+          <ion-item>
+            <ion-label>Description</ion-label>
+            <ion-textarea required
+                          minlength="10"
+                          maxlength="10000"
+                          [(ngModel)]="announceService.ann.desc"
+                          name="desc"
+                          #desc="ngModel"
+                          placeholder="Tapez votre texte ici."></ion-textarea>
+          </ion-item>
+
+          <ion-label class="error" [hidden]="desc.valid || (desc.pristine && desc.untouched)">
+            <span [hidden]="!desc.errors || !desc.errors.required">Ce champ est requis.</span>
+            <span [hidden]="!desc.errors || !desc.errors.minlength">Au moins 10 caractères.</span>
+            <span [hidden]="!desc.errors || !desc.errors.maxlength">Au plus 100 caractères.</span>
+          </ion-label>
+
+          <ion-label class="error" [hidden]="fees.valid || (fees.pristine && fees.untouched)">
+            <span [hidden]="!fees.errors || !fees.errors.maxlength">Au plus 10 caractères.</span>
+            <span [hidden]="!fees.errors || !fees.errors.pattern">Doit être un nombre avec au plus 2 décimales.</span>
+          </ion-label>
+
+          <ion-item>
+            <ion-label>Stock</ion-label>
+            <ion-input type="text"
+                       minlength="0"
+                       maxlength="13"
+                       pattern="\d+"
+                       [(ngModel)]="announceService.ann.stock"
+                       name="stock"
+                       #stock="ngModel"
+                       placeholder="Quantité disponibles à la vente, par exemple « 3 »."
+            ></ion-input>
+          </ion-item>
+
+          <ion-label class="error" [hidden]="stock.valid || (stock.pristine && stock.untouched)">
+            <span [hidden]="!stock.errors || !stock.errors.maxlength">Au plus 10 caractères.</span>
+            <span [hidden]="!stock.errors || !stock.errors.pattern">Doit être un nombre avec au plus 2 décimales.</span>
+          </ion-label>
+
+          <h2>Document final généré, à signer</h2>
+          <pre>{{ raw }}</pre>
+
+          <h2>Signature électronique</h2>
+
+          <ion-item>
+            <ion-label>Identifiant secret</ion-label>
+            <ion-input type="password"
+                       [(ngModel)]="key.salt"
+                       name="salt"
+                       #salt="ngModel"
+                       (ngModelChange)="verifieCle()"
+                       placeholder="Tapez votre identifiant secret."></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Mot de passe</ion-label>
+            <ion-input type="password"
+                       [(ngModel)]="key.passwd"
+                       name="passwd"
+                       #passwd="ngModel"
+                       (ngModelChange)="verifieCle()"
+                       placeholder="Tapez votre mot de passe." ></ion-input>
+          </ion-item>
+
+          <ion-item [hidden]="key.ok || computingKey">
+            <ion-label>Tapez vos identifiants secrets pour déverrouiller le bouton « Valider ».</ion-label>
+          </ion-item>
+          <ion-item [hidden]="!key.ok">
+            <ion-label>Trousseau généré correct.</ion-label>
+          </ion-item>
+          <ion-item [hidden]="!computingKey">
+            <ion-spinner item-left></ion-spinner>
+            <ion-label>Vérification de la clé...</ion-label>
+          </ion-item>
+
+        </ion-list>
+        <button type="submit" ion-button [disabled]="!accountForm.form.valid || !key.ok">Valider les modifications</button>
+      </form>
+    </ion-col>
+  </ion-row>
+
+</ion-content>
