@@ -21,7 +21,6 @@ export class KeyPairService {
     if (this.timeoutComputeKey) {
       clearTimeout(this.timeoutComputeKey)
     }
-    console.log('Verif clé')
     this.timeoutComputeKey = setTimeout(() => {
       this.getKeyPair()
         .then((pair) => {
