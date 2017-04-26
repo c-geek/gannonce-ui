@@ -64,6 +64,14 @@ export class AnnounceService {
       })
   }
 
+  listAllAnnounces() {
+    return this.http.get(ANNOUNCES_URL)
+      .toPromise()
+      .then((res) => {
+        return res.json().announces
+      })
+  }
+
   myAnnounces(pub) {
     return this.http.get(ANNOUNCES_URL + '/' + pub).toPromise()
       .then((res) => res.json())
