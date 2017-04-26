@@ -63,7 +63,9 @@ export class AccountService {
     return this.http.get(ACCOUNT_URL + '/' + pub).toPromise()
       .then((res) => res.json())
       .then(json => {
-        json.acc.desc = json.acc.desc.replace(/\\n/g, '\n')
+        if (json.acc) {
+          json.acc.desc = json.acc.desc.replace(/\\n/g, '\n')
+        }
         return json
       })
   }

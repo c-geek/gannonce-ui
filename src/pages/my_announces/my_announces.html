@@ -12,5 +12,11 @@
     </button>
   </ion-list>
 
-  <button ion-button routerLink="/announces/new">Ajouter une nouvelle annonce</button>
+  <ng-container *ngIf="!accountService.acc">
+    <p>Vous devez préalablement <a routerLink="/mon_compte">créer votre compte</a> pour pouvoir ajouter des annonces.</p>
+  </ng-container>
+
+  <ng-container *ngIf="accountService.acc">
+    <button ion-button routerLink="/announces/new">Ajouter une nouvelle annonce</button>
+  </ng-container>
 </ion-content>

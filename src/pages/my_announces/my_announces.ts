@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {LoginService} from "../../services/login-service";
 import {AnnounceService} from "../../services/announce-service";
+import {AccountService} from "../../services/account-service";
 
 @Component({
   selector: 'my_announces',
@@ -13,6 +14,7 @@ export class MyAnnouncesPage {
 
   constructor(
     public loginService:LoginService,
+    public accountService:AccountService,
     public announceService:AnnounceService) {
 
     this.announceService.myAnnounces(loginService.pub)
