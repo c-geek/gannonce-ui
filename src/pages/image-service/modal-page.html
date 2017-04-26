@@ -1,0 +1,13 @@
+<ion-content padding text-center>
+  <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+  <div class="file-upload">
+    <input id="custom-input" type="file" (change)="fileChangeListener($event)">
+    <label for="custom-input" ion-button>Envoyer un fichier...</label>
+  </div>
+  <br>
+  <!--<div class="result rounded" *ngIf="data.image">-->
+    <!--<img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">-->
+  <!--</div>-->
+  <button *ngIf="data.image" ion-button (click)="cancel()" color="light">Annuler</button>
+  <button *ngIf="data.image" ion-button (click)="saveImage()">J'ai terminé</button>
+</ion-content>

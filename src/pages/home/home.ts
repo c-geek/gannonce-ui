@@ -19,6 +19,9 @@ export class HomePage {
       uuid: "a9fg8ef4-4897",
       price: "112,00"
     }]
-    this.announceService.listAllAnnounces().then(announces => this.announces = announces)
+    this.announceService.listAllAnnounces().then(announces => this.announces = announces.map(a => {
+      a.thumbnail = a.images[0]
+      return a
+    }))
   }
 }

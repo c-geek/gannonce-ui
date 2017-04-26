@@ -4,6 +4,7 @@ import {AlertController} from "ionic-angular";
 import {Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {KeyPairService} from "./keypair-service";
+import {ImageService} from "./image-service";
 const co = require('co')
 const uuid = require('uuid')
 const tweetnacl = require('tweetnacl')
@@ -22,7 +23,8 @@ export class AnnounceService {
     private http: Http,
     private router: Router,
     private alertCtrl: AlertController,
-    public keypairService: KeyPairService
+    public keypairService: KeyPairService,
+    public imageService: ImageService
   ) {
     this.ann = {
       pub: '',
@@ -61,6 +63,7 @@ export class AnnounceService {
     return this.http.get(ANNOUNCE_URL + '/' + uuid)
       .toPromise().then((res) => {
         this.ann = res.json().announce
+        this.ann.images = this.ann.images || []
       })
   }
 
@@ -84,6 +87,15 @@ export class AnnounceService {
       })
   }
 
+  addImage() {
+    this.imageService.getNew()
+      .then(img => {
+        if (img) {
+          this.ann.images.push(img)
+        }
+      })
+  }
+
   rawify(a) {
     let raw = 'Version: 1\n'
     raw += `Document: Announce\n`
@@ -103,7 +115,7 @@ export class AnnounceService {
   }
 
   createOrModifyAnnounce(announceForm:NgForm) {
-    if (!announceForm.form.valid) {
+    if (!announceForm.form.valid || !this.key.ok) {
       return
     }
     const that = this

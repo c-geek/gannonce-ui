@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import {HttpModule, JsonpModule} from "@angular/http";
 import { MyApp } from './app.component';
+import { ImageCropperComponent } from "ng2-img-cropper";
 
 import { LoginService } from '../services/login-service';
 import { AccountService } from '../services/account-service';
@@ -20,6 +21,8 @@ import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
 import {FormsModule} from "@angular/forms";
 import {AnnounceEditPage} from "../pages/announce_new/announce_new";
+import {ImageService} from "../services/image-service";
+import {ImageModalPage} from "../pages/image-service/modal-page";
 
 const appRoutes: Routes = [
   {
@@ -65,6 +68,8 @@ const appRoutes: Routes = [
     AccountPage,
     MyAnnouncesPage,
     AnnounceEditPage,
+    ImageModalPage,
+    ImageCropperComponent,
     ItemDetailsPage,
     ListPage
   ],
@@ -84,7 +89,9 @@ const appRoutes: Routes = [
     AccountPage,
     MyAnnouncesPage,
     AnnounceEditPage,
+    ImageModalPage,
     ItemDetailsPage,
+    ImageCropperComponent,
     ListPage
   ],
   providers: [
@@ -92,6 +99,7 @@ const appRoutes: Routes = [
     AccountService,
     AnnounceService,
     KeyPairService,
+    ImageService,
     {provide: APP_BASE_HREF, useValue: '/#/'},
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

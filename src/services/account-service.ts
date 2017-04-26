@@ -88,7 +88,7 @@ export class AccountService {
 
 
   createOrModifyAccount(accountForm:NgForm) {
-    if (!accountForm.form.valid) {
+    if (!accountForm.form.valid || !this.key.ok) {
       return
     }
     const that = this
