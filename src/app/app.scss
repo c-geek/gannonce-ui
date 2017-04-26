@@ -53,3 +53,19 @@ account, announce_new {
 form .input-wrapper ion-label {
   color: #444 !important;
 }
+
+.nophoto {
+  vertical-align: middle;
+  background-color: #eee;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  color: gray;
+  font-size: 20px;
+}
+
+.nophoto ion-icon {
+  position: relative;
+  top: 8px;
+  left: 10px;
+}

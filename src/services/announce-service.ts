@@ -114,6 +114,11 @@ export class AnnounceService {
     return raw
   }
 
+  deleteAnnounce(announceForm:NgForm) {
+    this.ann.stock = 0
+    this.createOrModifyAnnounce(announceForm)
+  }
+
   createOrModifyAnnounce(announceForm:NgForm) {
     if (!announceForm.form.valid || !this.key.ok) {
       return

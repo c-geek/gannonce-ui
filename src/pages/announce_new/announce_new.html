@@ -1,7 +1,7 @@
 <ion-content padding>
 
 
-  <form #accountForm="ngForm" (ngSubmit)="announceService.createOrModifyAnnounce(accountForm)" >
+  <form #accountForm="ngForm">
     <ion-row>
       <ion-col col-12 col-sm-12 col-lg-6>
         <h2 *ngIf="!announceService.ann.uuid">Création d'une annonce</h2>
@@ -195,7 +195,8 @@
           </ion-item>
 
         </ion-list>
-        <button type="submit" ion-button [disabled]="!accountForm.form.valid || !key.ok">Valider les modifications</button>
+        <button type="submit" ion-button [disabled]="!accountForm.form.valid || !key.ok" (click)="announceService.createOrModifyAnnounce(accountForm)">Valider les modifications</button>
+        <button type="submit" ion-button [disabled]="!accountForm.form.valid || !key.ok" color="danger" (click)="announceService.deleteAnnounce(accountForm)">Supprimer l'annonce</button>
       </ion-col>
     </ion-row>
   </form>

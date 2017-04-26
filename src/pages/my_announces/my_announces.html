@@ -2,11 +2,14 @@
 
   <h2 *ngIf="announces.length == 0">Vous n'avez aucune annonce pour le moment.</h2>
   <ion-list id="home-list">
-    <button ion-item *ngFor="let a of announces" [routerLink]="['/announce/edit', a.uuid]">
+    <button ion-item *ngFor="let a of announces" [routerLink]="['/announce/edit', a.uuid]" [ngClass]="{'closed': a.stock == 0}">
       <ion-avatar item-left>
-        <img src="{{ a.thumbnail }}">
+        <img *ngIf="a.thumbnail" src="{{ a.thumbnail }}">
+        <div class="nophoto" *ngIf="!a.thumbnail">
+          <ion-icon name="photos"></ion-icon>
+        </div>
       </ion-avatar>
-      <h2>{{ a.title }}</h2>
+      <h2>{{ a.stock == 0 ? '[FERMÉE] ' + a.title : a.title }}</h2>
       <p>{{ a.desc }}</p>
       <h3 clear item-right>{{ a.price }} Ğ1</h3>
     </button>
