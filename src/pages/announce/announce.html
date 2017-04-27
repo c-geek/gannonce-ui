@@ -14,9 +14,14 @@
         {{ announceService.ann.stock }} unités disponibles.
       </p>
 
-      <ng-container *ngIf="announceService.ann.pub == loginService.pub">
-        <button ion-button [routerLink]="['/announce/edit', announceService.ann.uuid]">Modifier votre annonce</button>
+      <ng-container *ngIf="announceService.ann.account">
+        <h3>Vendeur</h3>
+        <a class="author" [routerLink]="['/account/', announceService.ann.account.pub]">{{ announceService.ann.account.title }}</a>
       </ng-container>
+
+      <p *ngIf="announceService.ann.pub == loginService.pub">
+        <button ion-button [routerLink]="['/announce/edit', announceService.ann.uuid]">Modifier votre annonce</button>
+      </p>
     </ion-col>
   </ion-row>
 

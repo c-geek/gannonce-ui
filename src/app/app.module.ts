@@ -14,7 +14,7 @@ import {AnnounceService} from "../services/announce-service";
 
 import {HomePage} from "../pages/home/home";
 import {ProfilPage} from "../pages/profil/profil";
-import {AccountPage} from "../pages/account/account";
+import {AccountEditPage} from "../pages/account_edit/account_edit";
 import {MyAnnouncesPage} from "../pages/my_announces/my_announces";
 import {ItemDetailsPage} from "../pages/item-details/item-details";
 import {ListPage} from "../pages/list/list";
@@ -25,6 +25,7 @@ import {ImageModalPage} from "../pages/image-service/modal-page";
 import {AnnouncePage} from "../pages/announce/announce";
 import {AuthService} from "../services/auth-service";
 import {AuthModal} from "../components/auth_modal/auth_modal";
+import {AccountPage} from "../pages/account/account";
 
 const appRoutes: Routes = [
   {
@@ -39,12 +40,12 @@ const appRoutes: Routes = [
   },
   {
     path: 'mon_compte/creer',
-    component: AccountPage,
+    component: AccountEditPage,
     data: { creation: true }
   },
   {
     path: 'mon_compte/edit/:pub',
-    component: AccountPage
+    component: AccountEditPage
   },
   {
     path: 'mes_annonces',
@@ -63,6 +64,10 @@ const appRoutes: Routes = [
   {
     path: 'announce/:uuid',
     component: AnnouncePage
+  },
+  {
+    path: 'account/:pub',
+    component: AccountPage
   }
 ];
 
@@ -71,10 +76,11 @@ const appRoutes: Routes = [
     MyApp,
     HomePage,
     ProfilPage,
-    AccountPage,
+    AccountEditPage,
     MyAnnouncesPage,
     AnnounceEditPage,
     AnnouncePage,
+    AccountPage,
     ImageModalPage,
     AuthModal,
     ImageCropperComponent,
@@ -94,7 +100,7 @@ const appRoutes: Routes = [
     MyApp,
     HomePage,
     ProfilPage,
-    AccountPage,
+    AccountEditPage,
     MyAnnouncesPage,
     AnnounceEditPage,
     ImageModalPage,

@@ -1,106 +1,23 @@
 <ion-content padding>
 
   <ion-row>
-    <ion-col col-12 col-sm-12 col-lg-8>
-      <h2 *ngIf="!accountService.acc.uuid">Création du compte ğchange</h2>
-      <h2 *ngIf="accountService.acc.uuid">Modification du compte ğchange</h2>
-
-      <form #accountForm="ngForm" >
-        <ion-list inset>
-
-          <ion-item>
-            <ion-label>UUID</ion-label>
-            <ion-input type="text" value="{{ accountService.acc.uuid }}" disabled></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>Pubkey</ion-label>
-            <ion-input type="text" value="{{ accountService.acc.pub }}" disabled></ion-input>
-          </ion-item>
-
-          <ion-item >
-            <ion-label>Nom public</ion-label>
-            <ion-input type="text"
-                       required
-                       minlength="10"
-                       maxlength="100"
-                       [(ngModel)]="accountService.acc.title"
-                       name="title"
-                       placeholder="Nom sur ğchange."
-                       #title="ngModel"
-            ></ion-input>
-          </ion-item>
-
-          <ion-label class="error" [hidden]="title.valid || (title.pristine && title.untouched)">
-            <span [hidden]="!title.errors || !title.errors.required">Ce champ est requis.</span>
-            <span [hidden]="!title.errors || !title.errors.minlength">Au moins 10 caractères.</span>
-            <span [hidden]="!title.errors || !title.errors.maxlength">Au plus 100 caractères.</span>
-          </ion-label>
-
-          <ion-item>
-            <ion-label>Description</ion-label>
-            <ion-textarea required
-                          minlength="10"
-                          maxlength="10000"
-                          [(ngModel)]="accountService.acc.desc"
-                          name="desc"
-                          #desc="ngModel"
-                          placeholder="Tapez votre texte ici."></ion-textarea>
-          </ion-item>
-
-          <ion-label class="error" [hidden]="desc.valid || (desc.pristine && desc.untouched)">
-            <span [hidden]="!desc.errors || !desc.errors.required">Ce champ est requis.</span>
-            <span [hidden]="!desc.errors || !desc.errors.minlength">Au moins 10 caractères.</span>
-            <span [hidden]="!desc.errors || !desc.errors.maxlength">Au plus 100 caractères.</span>
-          </ion-label>
-
-          <ion-item>
-            <ion-label>Adresse</ion-label>
-            <ion-input type="text"
-                       required
-                       minlength="4"
-                       maxlength="100"
-                       [(ngModel)]="accountService.acc.address"
-                       name="address"
-                       #address="ngModel"
-                       placeholder="Exemple : « 10 rue de la Monnaie Libre, ... »"
-            ></ion-input>
-          </ion-item>
-
-          <ion-label class="error" [hidden]="address.valid || (address.pristine && address.untouched)">
-            <span [hidden]="!address.errors || !address.errors.required">Ce champ est requis.</span>
-            <span [hidden]="!address.errors || !address.errors.minlength">Au moins 4 caractères.</span>
-            <span [hidden]="!address.errors || !address.errors.maxlength">Au plus 100 caractères.</span>
-          </ion-label>
-
-          <ion-item>
-            <ion-label>Liens</ion-label>
-            <ion-input type="text"
-                       minlength="10"
-                       maxlength="100"
-                       [(ngModel)]="accountService.link"
-                       name="link"
-                       #link="ngModel"
-                       placeholder="http://..." ></ion-input>
-            <button ion-button type="none" item-right (click)="accountService.ajouterLien(accountService.link)" [disabled]="!link.valid || !accountService.link">Ajouter</button>
-          </ion-item>
-
-          <ion-label class="error" [hidden]="link.valid || (link.pristine && link.untouched)">
-            <span [hidden]="!link.errors || !link.errors.minlength">Au moins 10 caractères.</span>
-            <span [hidden]="!link.errors || !link.errors.maxlength">Au plus 100 caractères.</span>
-          </ion-label>
-
-          <ion-item *ngFor="let lien of accountService.acc.links">
-            <ion-label>{{ lien }}</ion-label>
-            <button ion-button item-right color="danger" (click)="accountService.retirerLien(lien)">Retirer</button>
-          </ion-item>
-
-          <!--<h2>Document final généré, à signer</h2>-->
-          <!--<pre>{{ accountService.raw }}</pre>-->
-
-        </ion-list>
-        <button type="submit" ion-button [disabled]="!accountForm.form.valid" (click)="accountService.createOrModifyAccount(accountForm)" >Valider les modifications</button>
-      </form>
+    <ion-col col-12 col-sm-12 col-lg-6>
+      <h2>{{ accountService.acc.title }}</h2>
+      <pre>{{ accountService.acc.desc }}</pre>
+      <h3>Annonces</h3>
+      <ion-list id="home-list">
+        <button ion-item *ngFor="let a of announces" routerLink="/announce/{{ a.uuid }}">
+          <ion-avatar item-left>
+            <img *ngIf="a.thumbnail" src="{{ a.thumbnail }}">
+            <div class="nophoto" *ngIf="!a.thumbnail">
+              <ion-icon name="photos"></ion-icon>
+            </div>
+          </ion-avatar>
+          <h2>{{ a.title }}</h2>
+          <p>{{ a.desc }}</p>
+          <h3 clear item-right>{{ a.price }} Ğ1</h3>
+        </button>
+      </ion-list>
     </ion-col>
   </ion-row>
 
