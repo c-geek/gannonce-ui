@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {NavParams, ViewController} from "ionic-angular";
 const scrypt = require('scrypt-async')
 const tweetnacl = require('tweetnacl')
@@ -10,6 +10,8 @@ const base58 = require('../../lib/base58')
   template: require('./auth_modal.html')
 })
 export class AuthModal implements OnInit {
+
+  @ViewChild('saltinput') saltInput;
 
   error:string
   generated:string
@@ -30,9 +32,16 @@ export class AuthModal implements OnInit {
     this.remember = Boolean(sessionStorage.getItem('remember'))
     this.noConfirm = Boolean(sessionStorage.getItem('noConfirm'))
   }
+
   ngOnInit(): void {
     if (this.noConfirm) {
       this.valideCle()
+    }
+
+    if (!this.remember) {
+      setTimeout(() => {
+        this.saltInput.setFocus();
+      },150);
     }
   }
 
