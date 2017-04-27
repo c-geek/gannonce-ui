@@ -52,12 +52,12 @@ export class AnnounceService {
     this.ann = {
       pub,
       uuid: uuid.v4(),
-      title: 'Vente de radis',
-      desc: 'Production 2017, bio, par botte.',
-      price: '100.00',
-      fees: '50.00',
+      title: '',
+      desc: '',
+      price: '',
+      fees: '',
       type: 'Simple',
-      stock: '30',
+      stock: '1',
       images: [
       ]
     }
