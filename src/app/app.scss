@@ -29,12 +29,26 @@ ion-menu .scroll-content {
   overflow: hidden;
 }
 
-account, announce_new {
+account, announce_new, auth_modal {
 
   textarea {
     height: 200px;
     border-left: 1px dashed #ddd !important;
     padding-left: 15px !important;
+  }
+
+  .note {
+    background-color: #fffae4;
+    margin: 0px;
+    padding: 13px 8px 13px 12px;
+    border-left: 5px solid #efefae;
+  }
+
+  .info {
+    background-color: #d9e4ff;
+    margin: 0px;
+    padding: 13px 8px 13px 12px;
+    border-left: 5px solid #9aabff;
   }
 
   .error {

@@ -3,8 +3,8 @@ import {Http} from "@angular/http";
 import {AlertController} from "ionic-angular";
 import {Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
-import {KeyPairService} from "./keypair-service";
 import {ImageService} from "./image-service";
+import {AuthService} from "./auth-service";
 const co = require('co')
 const uuid = require('uuid')
 const tweetnacl = require('tweetnacl')
@@ -23,7 +23,7 @@ export class AnnounceService {
     private http: Http,
     private router: Router,
     private alertCtrl: AlertController,
-    public keypairService: KeyPairService,
+    public authService: AuthService,
     public imageService: ImageService
   ) {
     this.ann = {
@@ -41,8 +41,6 @@ export class AnnounceService {
   }
 
   get raw() { return this.rawify(this.ann) }
-
-  get key() { return this.keypairService.key }
 
   beginCreation(pub) {
     this.ann = {
@@ -122,7 +120,7 @@ export class AnnounceService {
   }
 
   createOrModifyAnnounce(announceForm:NgForm) {
-    if (!announceForm.form.valid || !this.key.ok) {
+    if (!announceForm.form.valid) {
       return
     }
     const that = this
@@ -131,24 +129,26 @@ export class AnnounceService {
 
       try {
 
-        const pair = yield that.keypairService.getKeyPair()
-        const crypto_sign_BYTES = 64;
-        const m = tweetnaclUtil.decodeUTF8(raw);
-        console.log(base58.encode(pair.publicKey))
-        const signedMsg = tweetnacl.sign(m, pair.secretKey)
-        const sig = new Uint8Array(crypto_sign_BYTES);
-        for (let i = 0; i < sig.length; i++) {
-          sig[i] = signedMsg[i];
+        const pair = yield that.authService.getKeyPair(that.ann.pub)
+        if (pair) {
+          const crypto_sign_BYTES = 64;
+          const m = tweetnaclUtil.decodeUTF8(raw);
+          console.log(base58.encode(pair.publicKey))
+          const signedMsg = tweetnacl.sign(m, pair.secretKey)
+          const sig = new Uint8Array(crypto_sign_BYTES);
+          for (let i = 0; i < sig.length; i++) {
+            sig[i] = signedMsg[i];
+          }
+
+          that.ann.sig = tweetnaclUtil.encodeBase64(sig)
+          raw += `${that.ann.sig || ''}`
+
+          yield that.http.post(ANNOUNCE_URL, { announce: raw }).toPromise()
+
+          announceForm.reset()
+
+          that.router.navigate([`/mes_annonces`])
         }
-
-        that.ann.sig = tweetnaclUtil.encodeBase64(sig)
-        raw += `${that.ann.sig || ''}`
-
-        yield that.http.post(ANNOUNCE_URL, { announce: raw }).toPromise()
-
-        announceForm.reset()
-
-        that.router.navigate([`/mes_annonces`])
 
       } catch (e) {
         if (e._body) {

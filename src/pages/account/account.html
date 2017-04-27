@@ -5,7 +5,7 @@
       <h2 *ngIf="!accountService.acc.uuid">Création du compte ğchange</h2>
       <h2 *ngIf="accountService.acc.uuid">Modification du compte ğchange</h2>
 
-      <form #accountForm="ngForm" (ngSubmit)="accountService.createOrModifyAccount(accountForm)" >
+      <form #accountForm="ngForm" >
         <ion-list inset>
 
           <ion-item>
@@ -57,6 +57,7 @@
           <ion-item>
             <ion-label>Adresse</ion-label>
             <ion-input type="text"
+                       required
                        minlength="4"
                        maxlength="100"
                        [(ngModel)]="accountService.acc.address"
@@ -67,6 +68,7 @@
           </ion-item>
 
           <ion-label class="error" [hidden]="address.valid || (address.pristine && address.untouched)">
+            <span [hidden]="!address.errors || !address.errors.required">Ce champ est requis.</span>
             <span [hidden]="!address.errors || !address.errors.minlength">Au moins 4 caractères.</span>
             <span [hidden]="!address.errors || !address.errors.maxlength">Au plus 100 caractères.</span>
           </ion-label>
@@ -93,44 +95,11 @@
             <button ion-button item-right color="danger" (click)="accountService.retirerLien(lien)">Retirer</button>
           </ion-item>
 
-          <h2>Document final généré, à signer</h2>
-          <pre>{{ accountService.raw }}</pre>
-
-          <h2>Signature électronique</h2>
-
-          <ion-item>
-            <ion-label>Identifiant secret</ion-label>
-            <ion-input type="password"
-                       [(ngModel)]="accountService.key.salt"
-                       name="salt"
-                       #salt="ngModel"
-                       (ngModelChange)="accountService.verifieCle()"
-                       placeholder="Tapez votre identifiant secret."></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-label>Mot de passe</ion-label>
-            <ion-input type="password"
-                       [(ngModel)]="accountService.key.passwd"
-                       name="passwd"
-                       #passwd="ngModel"
-                       (ngModelChange)="accountService.verifieCle()"
-                       placeholder="Tapez votre mot de passe." ></ion-input>
-          </ion-item>
-
-          <ion-item [hidden]="accountService.key.ok || accountService.keypairService.computingKey">
-            <ion-label>Tapez vos identifiants secrets pour déverrouiller le bouton « Valider ».</ion-label>
-          </ion-item>
-          <ion-item [hidden]="!accountService.key.ok">
-            <ion-label>Trousseau généré correct.</ion-label>
-          </ion-item>
-          <ion-item [hidden]="!accountService.keypairService.computingKey">
-            <ion-spinner item-left></ion-spinner>
-            <ion-label>Vérification de la clé...</ion-label>
-          </ion-item>
+          <!--<h2>Document final généré, à signer</h2>-->
+          <!--<pre>{{ accountService.raw }}</pre>-->
 
         </ion-list>
-        <button type="submit" ion-button [disabled]="!accountForm.form.valid || !accountService.key.ok">Valider les modifications</button>
+        <button type="submit" ion-button [disabled]="!accountForm.form.valid" (click)="accountService.createOrModifyAccount(accountForm)" >Valider les modifications</button>
       </form>
     </ion-col>
   </ion-row>

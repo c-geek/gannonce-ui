@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {AccountService} from "../../services/account-service";
 import {LoginService} from "../../services/login-service";
-import {KeyPairService} from "../../services/keypair-service";
 import {ActivatedRoute} from "@angular/router";
 import {AnnounceService} from "../../services/announce-service";
 
@@ -16,7 +15,6 @@ export class AnnouncePage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public loginService:LoginService,
-    public keypairService: KeyPairService,
     public accountService:AccountService,
     public announceService:AnnounceService) {
 
@@ -26,8 +24,6 @@ export class AnnouncePage implements OnInit {
   }
 
   ngOnInit() {
-    this.keypairService.key = {
-    }
     this.route.params.subscribe(params => {
       if (params['uuid']) {
         return this.announceService.getAnnounce(params['uuid'])

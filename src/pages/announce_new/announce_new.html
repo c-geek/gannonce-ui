@@ -158,40 +158,18 @@
 
         <ion-list inset>
 
-          <h2>Document final généré, à signer</h2>
-          <pre>{{ raw }}</pre>
+          <h4>Champs techniques</h4>
 
-          <h2>Signature électronique</h2>
+          <!--Ralentit fortement la rédaction, surtout quand il y a des images-->
+          <!--<h2>Document final généré, à signer</h2>-->
+          <!--<pre>{{ raw }}</pre>-->
 
           <ion-item>
-            <ion-label>Identifiant secret</ion-label>
-            <ion-input type="password"
-                       [(ngModel)]="key.salt"
-                       name="salt"
-                       #salt="ngModel"
-                       (ngModelChange)="verifieCle()"
-                       placeholder="Tapez votre identifiant secret."></ion-input>
+            <ion-label>UUID</ion-label>
+            <ion-input type="text" value="{{ announceService.ann.uuid }}" disabled></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-label>Mot de passe</ion-label>
-            <ion-input type="password"
-                       [(ngModel)]="key.passwd"
-                       name="passwd"
-                       #passwd="ngModel"
-                       (ngModelChange)="verifieCle()"
-                       placeholder="Tapez votre mot de passe." ></ion-input>
-          </ion-item>
-
-          <ion-item [hidden]="key.ok || computingKey">
-            <ion-label>Tapez vos identifiants secrets pour déverrouiller le bouton « Valider ».</ion-label>
-          </ion-item>
-          <ion-item [hidden]="!key.ok">
-            <ion-label>Trousseau généré correct.</ion-label>
-          </ion-item>
-          <ion-item [hidden]="!computingKey">
-            <ion-spinner item-left></ion-spinner>
-            <ion-label>Vérification de la clé...</ion-label>
           </ion-item>
 
         </ion-list>

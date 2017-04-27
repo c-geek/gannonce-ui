@@ -1,0 +1,39 @@
+<ion-content padding text-center>
+
+  <h2 text-center>Authentification</h2>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Identifiant secret</ion-label>
+      <ion-input type="password"
+                 [(ngModel)]="salt"
+                 placeholder="Tapez votre identifiant secret."></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Mot de passe</ion-label>
+      <ion-input type="password"
+                 [(ngModel)]="passwd"
+                 placeholder="Tapez votre mot de passe." ></ion-input>
+    </ion-item>
+
+    <ion-item [hidden]="generated">
+      <ion-label>Tapez vos identifiants secrets puis cliquer sur « Valider ».</ion-label>
+    </ion-item>
+    <ion-item [hidden]="computing || !generated || salt || passwd">
+      <ion-label class="info">Clé : {{ generated }}</ion-label>
+    </ion-item>
+    <ion-item [hidden]="computing || !error || salt || passwd">
+      <ion-label class="note">{{ error }}</ion-label>
+    </ion-item>
+    <ion-item [hidden]="!computing">
+      <ion-spinner item-left></ion-spinner>
+      <ion-label>Vérification de la clé...</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <p>
+    <button ion-button [disabled]="computing || !(salt && passwd)" (click)="valideCle()">Valider</button>
+    <button ion-button [disabled]="computing" color="light" (click)="cancel()">Annuler</button>
+  </p>
+</ion-content>
