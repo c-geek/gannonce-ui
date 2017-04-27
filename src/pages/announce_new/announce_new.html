@@ -4,8 +4,8 @@
   <form #accountForm="ngForm">
     <ion-row>
       <ion-col col-12 col-sm-12 col-lg-6>
-        <h2 *ngIf="!announceService.ann.uuid">Création d'une annonce</h2>
-        <h2 *ngIf="announceService.ann.uuid">Modification d'une annonce</h2>
+        <h2 *ngIf="announceService.creation">Création d'une annonce</h2>
+        <h2 *ngIf="!announceService.creation">Modification d'une annonce</h2>
           <ion-list inset>
 
             <!-- Titre -->
@@ -171,8 +171,8 @@
       <ion-col col-12 text-center>
         <button type="submit" ion-button [disabled]="!accountForm.form.valid" (click)="announceService.createOrModifyAnnounce(accountForm)">
           <span [hidden]="!(announceService.creation)">Créer l'annonce</span>
-          <span [hidden]="!(!announceService.creation && announceService.stockInitial == 0 && announceService.ann.stock > 0)">Rouvrir l'annonce</span>
-          <span [hidden]="!(!announceService.creation && announceService.stockInitial > 0 || announceService.ann.stock == announceService.stockInitial || announceService.ann.stock == '')">Valider les modifications</span>
+          <span [hidden]="!(!announceService.creation && (announceService.stockInitial == 0 && announceService.ann.stock > 0))">Rouvrir l'annonce</span>
+          <span [hidden]="!(!announceService.creation && (announceService.stockInitial > 0 || announceService.ann.stock == announceService.stockInitial || announceService.ann.stock == ''))">Valider les modifications</span>
         </button>
         <button [hidden]="announceService.stockInitial == 0" type="submit" ion-button [disabled]="!accountForm.form.valid" color="danger" (click)="announceService.deleteAnnounce(accountForm)">Fermer l'annonce</button>
       </ion-col>
