@@ -8,73 +8,7 @@
         <h2 *ngIf="announceService.ann.uuid">Modification d'une annonce</h2>
           <ion-list inset>
 
-            <ion-item>
-              <ion-label>UUID</ion-label>
-              <ion-input type="text" value="{{ announceService.ann.uuid }}" disabled></ion-input>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>Pubkey</ion-label>
-              <ion-input type="text" value="{{ announceService.ann.pub }}" disabled></ion-input>
-            </ion-item>
-
-            <ion-label>
-              Type d'annonce
-            </ion-label>
-
-            <ion-list radio-group
-                      [(ngModel)]="announceService.ann.type"
-                      name="type"
-                      #type="ngModel">
-
-              <ion-item>
-                <ion-label>Vente simple</ion-label>
-                <ion-radio
-                  value="Simple"></ion-radio>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>Enchère (fonctionnalité à venir)</ion-label>
-                <ion-radio
-                  value="Auction" disabled></ion-radio>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>Crowdfunding (fonctionnalité à venir)</ion-label>
-                <ion-radio
-                  value="Crowdfunding" disabled></ion-radio>
-              </ion-item>
-            </ion-list>
-
-            <ion-item>
-              <ion-label>Prix en Ğ1</ion-label>
-              <ion-input type="text"
-                         maxlength="13"
-                         pattern="\d+(\.\d{0,2})?"
-                         [(ngModel)]="announceService.ann.price"
-                         name="price"
-                         #price="ngModel"
-                         placeholder="Tapez un prix pour cette annonce, par exemple « 10.00 »."
-              ></ion-input>
-            </ion-item>
-
-            <ion-label class="error" [hidden]="price.valid || (price.pristine && price.untouched)">
-              <span [hidden]="!price.errors || !price.errors.maxlength">Au plus 10 caractères.</span>
-              <span [hidden]="!price.errors || !price.errors.pattern">Doit être un nombre avec au plus 2 décimales.</span>
-            </ion-label>
-
-            <ion-item>
-              <ion-label>Frais en Ğ1</ion-label>
-              <ion-input type="text"
-                         maxlength="13"
-                         pattern="\d+(\.\d{0,2})?"
-                         [(ngModel)]="announceService.ann.fees"
-                         name="fees"
-                         #fees="ngModel"
-                         placeholder="Tapez un montant pour les frais annexes (expédition, taxes, ...), par exemple « 2.58 »."
-              ></ion-input>
-            </ion-item>
-
+            <!-- Titre -->
             <ion-item >
               <ion-label>Titre</ion-label>
               <ion-input type="text"
@@ -93,6 +27,56 @@
               <span [hidden]="!title.errors || !title.errors.minlength">Au moins 10 caractères.</span>
               <span [hidden]="!title.errors || !title.errors.maxlength">Au plus 100 caractères.</span>
             </ion-label>
+
+            <!-- Type d'annonce -->
+            <ion-list radio-group
+                      [(ngModel)]="announceService.ann.type"
+                      name="type"
+                      #type="ngModel">
+
+              <ion-item>
+                <ion-label>Vente simple</ion-label>
+                <ion-radio
+                  value="Simple"></ion-radio>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Crowdfunding (fonctionnalité à venir)</ion-label>
+                <ion-radio
+                  value="Crowdfunding" disabled></ion-radio>
+              </ion-item>
+            </ion-list>
+
+            <ion-item>
+              <ion-label>Prix en Ğ1</ion-label>
+              <ion-input type="text"
+                         required
+                         maxlength="13"
+                         pattern="\d+(\.\d{0,2})?"
+                         [(ngModel)]="announceService.ann.price"
+                         name="price"
+                         #price="ngModel"
+                         placeholder="Tapez un prix pour cette annonce, par exemple « 10.00 »."
+              ></ion-input>
+            </ion-item>
+
+            <ion-label class="error" [hidden]="price.valid || (price.pristine && price.untouched)">
+              <span [hidden]="!price.errors || !price.errors.required">Ce champ est requis.</span>
+              <span [hidden]="!price.errors || !price.errors.maxlength">Au plus 10 caractères.</span>
+              <span [hidden]="!price.errors || !price.errors.pattern">Doit être un nombre avec au plus 2 décimales.</span>
+            </ion-label>
+
+            <ion-item>
+              <ion-label>Frais en Ğ1</ion-label>
+              <ion-input type="text"
+                         maxlength="13"
+                         pattern="\d+(\.\d{0,2})?"
+                         [(ngModel)]="announceService.ann.fees"
+                         name="fees"
+                         #fees="ngModel"
+                         placeholder="Tapez un montant pour les frais annexes (expédition, taxes, ...), par exemple « 2.58 »."
+              ></ion-input>
+            </ion-item>
 
             <ion-item>
               <ion-label>Description</ion-label>
@@ -119,6 +103,7 @@
             <ion-item>
               <ion-label>Stock</ion-label>
               <ion-input type="text"
+                         required
                          minlength="0"
                          maxlength="13"
                          pattern="\d+"
@@ -130,8 +115,13 @@
             </ion-item>
 
             <ion-label class="error" [hidden]="stock.valid || (stock.pristine && stock.untouched)">
+              <span [hidden]="!stock.errors || !stock.errors.required">Ce champ est requis.</span>
               <span [hidden]="!stock.errors || !stock.errors.maxlength">Au plus 10 caractères.</span>
               <span [hidden]="!stock.errors || !stock.errors.pattern">Doit être un nombre avec au plus 2 décimales.</span>
+            </ion-label>
+
+            <ion-label class="note">
+              Note : mettre la valeur « 0 » équivaut à fermer l'annonce.
             </ion-label>
           </ion-list>
       </ion-col>
@@ -170,11 +160,21 @@
           </ion-item>
 
           <ion-item>
+            <ion-label>Pubkey</ion-label>
+            <ion-input type="text" value="{{ announceService.ann.pub }}" disabled></ion-input>
           </ion-item>
 
         </ion-list>
-        <button type="submit" ion-button [disabled]="!accountForm.form.valid || !key.ok" (click)="announceService.createOrModifyAnnounce(accountForm)">Valider les modifications</button>
-        <button type="submit" ion-button [disabled]="!accountForm.form.valid || !key.ok" color="danger" (click)="announceService.deleteAnnounce(accountForm)">Supprimer l'annonce</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 text-center>
+        <button type="submit" ion-button [disabled]="!accountForm.form.valid" (click)="announceService.createOrModifyAnnounce(accountForm)">
+          <span [hidden]="!(announceService.creation)">Créer l'annonce</span>
+          <span [hidden]="!(!announceService.creation && announceService.stockInitial == 0 && announceService.ann.stock > 0)">Rouvrir l'annonce</span>
+          <span [hidden]="!(!announceService.creation && announceService.stockInitial > 0 || announceService.ann.stock == announceService.stockInitial || announceService.ann.stock == '')">Valider les modifications</span>
+        </button>
+        <button [hidden]="announceService.stockInitial == 0" type="submit" ion-button [disabled]="!accountForm.form.valid" color="danger" (click)="announceService.deleteAnnounce(accountForm)">Fermer l'annonce</button>
       </ion-col>
     </ion-row>
   </form>

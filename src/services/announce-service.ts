@@ -18,6 +18,8 @@ const ANNOUNCES_URL = 'http://l:8600/announces'
 export class AnnounceService {
 
   ann:any
+  stockInitial:Number
+  creation:Boolean
 
   constructor(
     private http: Http,
@@ -26,6 +28,8 @@ export class AnnounceService {
     public authService: AuthService,
     public imageService: ImageService
   ) {
+    this.creation = false
+    this.stockInitial = 1
     this.ann = {
       pub: '',
       uuid: uuid.v4(),
@@ -43,6 +47,8 @@ export class AnnounceService {
   get raw() { return this.rawify(this.ann) }
 
   beginCreation(pub) {
+    this.creation = true
+    this.stockInitial = 1
     this.ann = {
       pub,
       uuid: uuid.v4(),
@@ -64,6 +70,8 @@ export class AnnounceService {
         this.ann.descLigne = this.ann.desc.replace(/\\n+/g, ' ')
         this.ann.descParagraphe = this.ann.desc.replace(/\\n/g, '\n')
         this.ann.images = this.ann.images || []
+        this.stockInitial = this.ann.stock
+        this.creation = false
       })
   }
 
