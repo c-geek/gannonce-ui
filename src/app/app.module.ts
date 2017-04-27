@@ -23,6 +23,7 @@ import {FormsModule} from "@angular/forms";
 import {AnnounceEditPage} from "../pages/announce_new/announce_new";
 import {ImageService} from "../services/image-service";
 import {ImageModalPage} from "../pages/image-service/modal-page";
+import {AnnouncePage} from "../pages/announce/announce";
 
 const appRoutes: Routes = [
   {
@@ -57,6 +58,10 @@ const appRoutes: Routes = [
     path: 'announce/edit/:uuid',
     component: AnnounceEditPage,
     data: { creation: false }
+  },
+  {
+    path: 'announce/:uuid',
+    component: AnnouncePage
   }
 ];
 
@@ -68,6 +73,7 @@ const appRoutes: Routes = [
     AccountPage,
     MyAnnouncesPage,
     AnnounceEditPage,
+    AnnouncePage,
     ImageModalPage,
     ImageCropperComponent,
     ItemDetailsPage,

@@ -1,0 +1,19 @@
+<ion-content padding>
+
+  <ion-row>
+    <ion-col col-12 col-sm-12 col-lg-6>
+      <h2>{{ announceService.ann.title }}</h2>
+      <p *ngIf="announceService.ann.images.length == 0">Pas d'images pour cette annnonce.</p>
+      <p>
+        <img *ngFor="let src of announceService.ann.images" src="{{ src }}"/>
+      </p>
+      <h3>Description</h3>
+      <pre>{{ announceService.ann.descParagraphe }}</pre>
+      <h3>Stock</h3>
+      <p>
+        {{ announceService.ann.stock }} unités disponibles.
+      </p>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

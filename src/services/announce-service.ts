@@ -63,6 +63,8 @@ export class AnnounceService {
     return this.http.get(ANNOUNCE_URL + '/' + uuid)
       .toPromise().then((res) => {
         this.ann = res.json().announce
+        this.ann.descLigne = this.ann.desc.replace(/\\n+/g, ' ')
+        this.ann.descParagraphe = this.ann.desc.replace(/\\n/g, '\n')
         this.ann.images = this.ann.images || []
       })
   }
@@ -103,7 +105,7 @@ export class AnnounceService {
     raw += `Pub: ${a.pub}\n`
     raw += `Uuid: ${a.uuid}\n`
     raw += `Title: ${a.title}\n`
-    raw += `Desc: ${a.desc}\n`
+    raw += `Desc: ${a.desc.replace(/\n/g, '\\n')}\n`
     raw += `Price: ${a.price}\n`
     raw += `Fees: ${a.fees}\n`
     raw += `Type: ${a.type}\n`
