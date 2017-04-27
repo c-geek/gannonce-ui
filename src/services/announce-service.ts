@@ -132,6 +132,21 @@ export class AnnounceService {
       return
     }
     const that = this
+    // Format
+    for (const f of ['price', 'fees']) {
+      if (!this.ann[f]) {
+        this.ann[f] = '0.00'
+      }
+      if (this.ann[f].match(/^\d+$/)) {
+        this.ann[f] = this.ann[f] + '.00'
+      }
+      if (this.ann[f].match(/^\d+\.$/)) {
+        this.ann[f] = this.ann[f] + '00'
+      }
+      if (this.ann[f].match(/^\d+\.\d$/)) {
+        this.ann[f] = this.ann[f] + '0'
+      }
+    }
     let raw = this.rawify(this.ann)
     return co(function*() {
 
