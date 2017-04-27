@@ -24,6 +24,7 @@ export class AccountService {
     private alertCtrl: AlertController,
     public authService: AuthService,
   ) {
+    this.acc = {}
   }
 
   get raw() { return this.rawify(this.acc) }

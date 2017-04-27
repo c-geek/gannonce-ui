@@ -6,6 +6,7 @@
     <ion-item>
       <ion-label>Identifiant secret</ion-label>
       <ion-input type="password"
+                 [disabled]="computing"
                  [(ngModel)]="salt"
                  placeholder="Tapez votre identifiant secret."></ion-input>
     </ion-item>
@@ -13,11 +14,12 @@
     <ion-item>
       <ion-label>Mot de passe</ion-label>
       <ion-input type="password"
+                 [disabled]="computing"
                  [(ngModel)]="passwd"
                  placeholder="Tapez votre mot de passe." ></ion-input>
     </ion-item>
 
-    <ion-item [hidden]="generated">
+    <ion-item [hidden]="generated || salt || passwd">
       <ion-label>Tapez vos identifiants secrets puis cliquer sur « Valider ».</ion-label>
     </ion-item>
     <ion-item [hidden]="computing || !generated || salt || passwd">
@@ -29,6 +31,14 @@
     <ion-item [hidden]="!computing">
       <ion-spinner item-left></ion-spinner>
       <ion-label>Vérification de la clé...</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Mémoriser ces valeurs le temps de la navigation</ion-label>
+      <ion-checkbox color="royal" [(ngModel)]="remember" checked="false"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Ne plus me demander confirmation le temps de la navigation</ion-label>
+      <ion-checkbox color="royal" [(ngModel)]="noConfirm" checked="false"></ion-checkbox>
     </ion-item>
   </ion-list>
 

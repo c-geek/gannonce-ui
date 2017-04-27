@@ -43,7 +43,7 @@ const appRoutes: Routes = [
     data: { creation: true }
   },
   {
-    path: 'mon_compte/modifier',
+    path: 'mon_compte/edit/:pub',
     component: AccountPage
   },
   {

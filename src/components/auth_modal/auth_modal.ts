@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {NavParams, ViewController} from "ionic-angular";
 const scrypt = require('scrypt-async')
 const tweetnacl = require('tweetnacl')
@@ -9,21 +9,31 @@ const base58 = require('../../lib/base58')
   selector: 'auth_modal',
   template: require('./auth_modal.html')
 })
-export class AuthModal {
+export class AuthModal implements OnInit {
 
   error:string
   generated:string
-  salt:string = ""
-  passwd:string = ""
-  keyPair:any
+  salt:string
+  passwd:string
   expectedPub:string
   computing:Boolean
+  remember:Boolean
+  noConfirm:Boolean
 
   constructor(
     private params: NavParams,
     public viewCtrl: ViewController
   ) {
     this.expectedPub = this.params.get('expectedPub')
+    this.salt = sessionStorage.getItem('salt')
+    this.passwd = sessionStorage.getItem('passwd')
+    this.remember = Boolean(sessionStorage.getItem('remember'))
+    this.noConfirm = Boolean(sessionStorage.getItem('noConfirm'))
+  }
+  ngOnInit(): void {
+    if (this.noConfirm) {
+      this.valideCle()
+    }
   }
 
   getKeyPair() {
@@ -51,15 +61,32 @@ export class AuthModal {
       .then((pair) => {
         this.computing = false
         this.generated = base58.encode(pair.publicKey)
+        const salt = this.salt, passwd = this.passwd
         this.salt = ""
         this.passwd = ""
         if (this.expectedPub === this.generated) {
+          // Success auth
+          if (this.remember) {
+            sessionStorage.setItem('salt', salt)
+            sessionStorage.setItem('passwd', passwd)
+            sessionStorage.setItem('remember', "1")
+          } else {
+            sessionStorage.removeItem('salt')
+            sessionStorage.removeItem('passwd')
+            sessionStorage.removeItem('remember')
+            sessionStorage.removeItem('remember')
+          }
+          if (this.noConfirm) {
+            sessionStorage.setItem('noConfirm', "1")
+          } else {
+            sessionStorage.removeItem('noConfirm')
+          }
           this.viewCtrl.dismiss(pair)
         } else {
           this.error = 'La clé générée n\'est pas celle de votre compte. Une faute de frappe ?'
         }
       })
-    }, 100)
+    }, 500)
   }
 
   cancel() {

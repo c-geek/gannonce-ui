@@ -34,7 +34,7 @@
         Ce compte est actif.
       </p>
       <p>
-        <button ion-button color="primary" routerLink="/mon_compte/modifier">Modifier le compte</button>
+        <button ion-button color="primary" [routerLink]="['/mon_compte/edit', loginService.pub]">Modifier le compte</button>
       </p>
     </ng-container>
     <h2>Porte-monnaie associé</h2>
