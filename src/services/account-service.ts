@@ -4,6 +4,8 @@ import {AlertController} from "ionic-angular";
 import {Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {AuthService} from "./auth-service";
+import {ImageService} from "./image-service";
+import {LoginService} from "./login-service";
 const co = require('co')
 const uuid = require('uuid')
 const tweetnacl = require('tweetnacl')
@@ -22,6 +24,8 @@ export class AccountService {
     private http: Http,
     private router: Router,
     private alertCtrl: AlertController,
+    private imageService: ImageService,
+    public loginService: LoginService,
     public authService: AuthService,
   ) {
     this.acc = {}
@@ -32,6 +36,15 @@ export class AccountService {
   ajouterLien(lien:string) {
     this.acc.links.push(lien)
     this.link = ''
+  }
+
+  setLogo() {
+    this.imageService.getNew()
+      .then(img => {
+        if (img) {
+          this.acc.logo = img
+        }
+      })
   }
 
   retirerLien(lien:string) {
@@ -110,7 +123,7 @@ export class AccountService {
 
           accountForm.reset()
 
-          that.router.navigate([`/mon_compte`])
+          that.router.navigate([`/account`, that.acc.pub])
         }
 
       } catch (e) {

@@ -90,6 +90,13 @@
             <span [hidden]="!link.errors || !link.errors.maxlength">Au plus 100 caractères.</span>
           </ion-label>
 
+          <ion-item class="item-input">
+            <ion-label>Logo :</ion-label>
+            <button ion-button item-right (click)="accountService.setLogo()">Changer de logo</button>
+          </ion-item>
+
+          <img src="{{ accountService.acc.logo }}">
+
           <ion-item *ngFor="let lien of accountService.acc.links">
             <ion-label>{{ lien }}</ion-label>
             <button ion-button item-right color="danger" (click)="accountService.retirerLien(lien)">Retirer</button>

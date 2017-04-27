@@ -1,20 +1,15 @@
-import { co } from 'co';
-import {Injectable} from '@angular/core';
-import {AlertController, LoadingController, ToastController} from "ionic-angular";
-import {AccountService} from "./account-service";
+import {Injectable} from "@angular/core";
+import {AlertController, ToastController} from "ionic-angular";
 
 @Injectable()
 export class LoginService {
 
   pub:string
   estIdentifie:Boolean
-  enoughMoney:Boolean
 
   constructor(
-    public accountService: AccountService,
     public alertCtrl: AlertController,
-    public toastCtrl: ToastController,
-    public loadingCtrl: LoadingController) {
+    public toastCtrl: ToastController) {
 
     this.pub = localStorage.getItem('pub')
     this.estIdentifie = !!this.pub
@@ -90,22 +85,5 @@ export class LoginService {
       ]
     });
     confirm.present();
-  }
-
-  reload() {
-    // let loader = this.loadingCtrl.create({
-    //   content: "Chargement du compte...",
-    //   duration: 3000
-    // });
-    const that = this
-
-    // loader.present();
-    co(function*() {
-      const body = yield that.accountService.getAccountInfos(that.pub)
-      that.accountService.acc = body.acc
-      that.enoughMoney = body.enoughMoney
-      console.log(that.enoughMoney)
-      // loader.dismissAll();
-    })
   }
 }

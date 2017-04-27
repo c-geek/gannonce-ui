@@ -5,7 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {AnnounceService} from "../../services/announce-service";
 
 @Component({
-  selector: 'announce',
+  selector: 'account',
   template: require('../../app/topbar.html') + require('./account.html')
 })
 export class AccountPage implements OnInit {

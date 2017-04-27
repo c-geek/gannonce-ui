@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {LoginService} from "../../services/login-service";
 import {AccountService} from "../../services/account-service";
+import {co} from "co";
 
 @Component({
   selector: 'profil',
@@ -9,11 +10,25 @@ import {AccountService} from "../../services/account-service";
 export class ProfilPage {
 
   title:string = "Mon profil"
+  enoughMoney:Boolean
 
   constructor(
     public accountService: AccountService,
     public loginService:LoginService) {
 
-    loginService.reload()
+    // let loader = this.loadingCtrl.create({
+    //   content: "Chargement du compte...",
+    //   duration: 3000
+    // });
+    const that = this
+
+    // loader.present();
+    co(function*() {
+      const body = yield that.accountService.getAccountInfos(that.loginService.pub)
+      that.accountService.acc = body.acc
+      that.enoughMoney = body.enoughMoney
+      console.log(that.enoughMoney)
+      // loader.dismissAll();
+    })
   }
 }

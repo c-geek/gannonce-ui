@@ -9,18 +9,21 @@
     <!-- Compte inexistant -->
     <ng-container *ngIf="!accountService.acc">
       <p>
-        <ion-badge item-left class="warn">Inexistant</ion-badge>
+        <ion-badge item-left class="warn">Compte inexistant</ion-badge>
       </p>
       <p>
-        Ce compte n'existe pas encore, car il n'a pas été créé.
+        Ce porte-monnaie n'a pas encore de compte de vendeur. Si vous possédez ce porte-monnaie, alors vous pouvez l'utiliser pour lui associer un compte de vendeur sur ğchange.
       </p>
-      <p *ngIf="loginService.enoughMoney">
-        <button ion-button color="primary" routerLink="/mon_compte/creer">Créer le compte maintenant</button>
+      <p>
+        Si vous n'êtes pas le possesseur de ce porte-monnaie, vous ne pourrez pas créer le compte.
       </p>
-      <p *ngIf="!loginService.enoughMoney">
+      <p *ngIf="enoughMoney">
+        <button ion-button color="primary" routerLink="/mon_compte/creer">Créer le compte de vendeur maintenant</button>
+      </p>
+      <p *ngIf="!enoughMoney">
         <ion-badge class="warn">Solde insuffisant</ion-badge>
       </p>
-      <p *ngIf="!loginService.enoughMoney">
+      <p *ngIf="!enoughMoney">
         Ce compte ne peut pas être créé pour le moment, car le porte-monnaie associé doit posséder au moins 1,00 Ğ1 pour réaliser cette opération.
       </p>
     </ng-container>
@@ -34,7 +37,7 @@
         Ce compte est actif.
       </p>
       <p>
-        <button ion-button color="primary" [routerLink]="['/mon_compte/edit', loginService.pub]">Modifier le compte</button>
+        <button ion-button color="primary" [routerLink]="['/account/edit', loginService.pub]">Modifier le compte de vendeur</button>
       </p>
     </ng-container>
     <h2>Porte-monnaie associé</h2>
@@ -42,9 +45,7 @@
       <ion-badge item-left color="secondary">{{ loginService.pub }}</ion-badge>
     </p>
     <p>
-      Il s'agit d'une clé publique valide.
+      Il s'agit d'une clé publique valide, l'adresse d'un portefeuille Ğ1.
     </p>
-    <h2>Activité</h2>
-    <p>Ce compte n'a aucune activité pour le moment.</p>
   </ng-container>
 </ion-content>

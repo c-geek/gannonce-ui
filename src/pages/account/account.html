@@ -2,6 +2,7 @@
 
   <ion-row>
     <ion-col col-12 col-sm-12 col-lg-6>
+      <img src="{{ accountService.acc.logo }}">
       <h2>{{ accountService.acc.title }}</h2>
       <pre>{{ accountService.acc.desc }}</pre>
       <h3>Annonces</h3>
@@ -18,6 +19,10 @@
           <h3 clear item-right>{{ a.price }} Ğ1</h3>
         </button>
       </ion-list>
+
+      <p *ngIf="accountService.acc.pub == loginService.pub">
+        <button ion-button [routerLink]="['/account/edit', accountService.acc.pub]">Modifier votre fiche</button>
+      </p>
     </ion-col>
   </ion-row>
 
