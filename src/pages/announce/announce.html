@@ -9,6 +9,13 @@
       </p>
       <h3>Description</h3>
       <pre>{{ announceService.ann.descParagraphe }}</pre>
+      <h3>Prix</h3>
+      <p class="price">
+        {{ announceService.ann.price }} Ğ1
+      </p>
+      <p class="fees" *ngIf="announceService.ann.feesFloat">
+        +{{ announceService.ann.fees }} Ğ1 (frais de transport)
+      </p>
       <h3>Stock</h3>
       <p>
         {{ announceService.ann.stock }} unités disponibles.

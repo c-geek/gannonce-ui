@@ -69,6 +69,7 @@ export class AnnounceService {
         this.ann = res.json().announce
         this.ann.descLigne = this.ann.desc.replace(/\\n+/g, ' ')
         this.ann.descParagraphe = this.ann.desc.replace(/\\n/g, '\n')
+        this.ann.feesFloat = parseFloat(this.ann.fees)
         this.ann.images = this.ann.images || []
         this.stockInitial = this.ann.stock
         this.creation = false
