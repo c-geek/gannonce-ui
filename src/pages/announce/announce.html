@@ -1,5 +1,10 @@
 <ion-content padding>
 
+  <ng-container *ngIf="!announceService.ann.title">
+    <ion-spinner></ion-spinner>
+    <ion-label>Chargement...</ion-label>
+  </ng-container>
+
   <ion-row>
     <ion-col col-12 *ngIf="announceService.ann.title">
       <h2>{{ announceService.ann.title }}</h2>

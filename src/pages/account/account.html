@@ -1,5 +1,10 @@
 <ion-content padding>
 
+  <ng-container *ngIf="!accountService.acc.title">
+    <ion-spinner></ion-spinner>
+    <ion-label>Chargement...</ion-label>
+  </ng-container>
+
   <ion-row>
     <ion-col col-12 *ngIf="accountService.acc.title">
       <img class="logo" src="{{ accountService.acc.logo }}">
