@@ -36,6 +36,9 @@ export class AccountPage implements OnInit {
             this.announces = []
             for (const a of res.announces) {
               if (parseInt(a.stock)) {
+                if (a.images.length) {
+                  a.thumbnail = a.images[0]
+                }
                 this.announces.push(a)
               }
             }
