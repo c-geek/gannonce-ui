@@ -5,6 +5,8 @@
       <img class="logo" src="{{ accountService.acc.logo }}">
       <h2>{{ accountService.acc.title }}</h2>
       <pre>{{ accountService.acc.desc }}</pre>
+      <h3>Porte-monnaie</h3>
+      <input class="pubkey" type="text" disabled value="{{ accountService.acc.pub }}">
       <h3>Annonces</h3>
       <ion-list id="home-list">
         <button ion-item *ngFor="let a of announces" routerLink="/announce/{{ a.uuid }}">

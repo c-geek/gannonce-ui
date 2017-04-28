@@ -16,6 +16,8 @@
       <p class="fees" *ngIf="announceService.ann.feesFloat">
         +{{ announceService.ann.fees }} Ğ1 (frais de transport)
       </p>
+      <h3>Paiement à</h3>
+      <input class="pubkey" type="text" disabled value="{{ announceService.ann.pub }}">
       <h3>Stock</h3>
       <p>
         {{ announceService.ann.stock }} unités disponibles.
