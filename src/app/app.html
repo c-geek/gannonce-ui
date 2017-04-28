@@ -27,7 +27,7 @@
             <ion-icon name="person" item-left></ion-icon>
             <span>Mon compte</span>
           </ion-item-divider>
-          <button *ngIf="!_loginService.estIdentifie" ion-item (click)="_loginService.showPrompt()">
+          <button *ngIf="!_loginService.estIdentifie" ion-item routerLink="/connect">
             S'identifier
           </button>
           <ng-container *ngIf="_loginService.estIdentifie">

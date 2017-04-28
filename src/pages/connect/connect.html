@@ -1,0 +1,12 @@
+<ion-content padding>
+
+  <ion-row>
+    <ion-col col-12>
+
+      <p *ngIf="accountService.acc.pub == loginService.pub">
+        <button ion-button [routerLink]="['/account/edit', accountService.acc.pub]">Modifier votre fiche</button>
+      </p>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

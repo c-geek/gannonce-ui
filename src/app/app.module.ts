@@ -26,12 +26,17 @@ import {AnnouncePage} from "../pages/announce/announce";
 import {AuthService} from "../services/auth-service";
 import {AuthModal} from "../components/auth_modal/auth_modal";
 import {AccountPage} from "../pages/account/account";
+import {ConnectPage} from "../pages/connect/connect";
 
 const appRoutes: Routes = [
   {
     path: '',
     component: HomePage,
     data: { title: 'Titre 1' }
+  },
+  {
+    path: 'connect',
+    component: ConnectPage
   },
   {
     path: 'mon_compte',
@@ -83,6 +88,7 @@ const appRoutes: Routes = [
     AccountPage,
     ImageModalPage,
     AuthModal,
+    ConnectPage,
     ImageCropperComponent,
     ItemDetailsPage,
     ListPage
