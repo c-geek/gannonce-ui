@@ -68,7 +68,10 @@ export class AnnounceService {
       .toPromise().then((res) => {
         this.ann = res.json().announce
         this.ann.descLigne = this.ann.desc.replace(/\\n+/g, ' ')
-        this.ann.descParagraphe = this.ann.desc.replace(/\\n/g, '\n')
+        this.ann.descParagraphe = this.ann.desc.replace(/\\n/g, '\n').replace(/\\\n/g, '\\n')
+        this.ann.descParagrapheHTML = this.ann.desc
+          .replace(/\\n/g, '<br>')
+          .replace(/\\<br>/g, '\\n')
         this.ann.feesFloat = parseFloat(this.ann.fees)
         this.ann.images = this.ann.images || []
         this.stockInitial = this.ann.stock
@@ -112,7 +115,7 @@ export class AnnounceService {
     raw += `Pub: ${a.pub}\n`
     raw += `Uuid: ${a.uuid}\n`
     raw += `Title: ${a.title}\n`
-    raw += `Desc: ${a.desc.replace(/\n/g, '\\n')}\n`
+    raw += `Desc: ${a.descParagraphe.replace(/\\n/g, '\\\\n').replace(/\n/g, '\\n')}\n`
     raw += `Price: ${a.price}\n`
     raw += `Fees: ${a.fees}\n`
     raw += `Type: ${a.type}\n`

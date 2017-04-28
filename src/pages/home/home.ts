@@ -14,6 +14,7 @@ export class HomePage {
     this.announces = []
     this.announceService.listAllAnnounces().then(announces => this.announces = announces.map(a => {
       a.thumbnail = a.images[0]
+      a.descLigne = a.desc.replace(/\\n/g, ' ')
       return a
     }))
   }
