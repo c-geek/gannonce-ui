@@ -78,23 +78,6 @@
               ></ion-input>
             </ion-item>
 
-            <ion-item>
-              <ion-label>Description</ion-label>
-              <ion-textarea required
-                            minlength="10"
-                            maxlength="10000"
-                            [(ngModel)]="announceService.ann.descParagraphe"
-                            name="desc"
-                            #desc="ngModel"
-                            placeholder="Tapez votre texte ici."></ion-textarea>
-            </ion-item>
-
-            <ion-label class="error" [hidden]="desc.valid || (desc.pristine && desc.untouched)">
-              <span [hidden]="!desc.errors || !desc.errors.required">Ce champ est requis.</span>
-              <span [hidden]="!desc.errors || !desc.errors.minlength">Au moins 10 caractères.</span>
-              <span [hidden]="!desc.errors || !desc.errors.maxlength">Au plus 100 caractères.</span>
-            </ion-label>
-
             <ion-label class="error" [hidden]="fees.valid || (fees.pristine && fees.untouched)">
               <span [hidden]="!fees.errors || !fees.errors.maxlength">Au plus 10 caractères.</span>
               <span [hidden]="!fees.errors || !fees.errors.pattern">Doit être un nombre avec au plus 2 décimales.</span>
@@ -168,13 +151,34 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col col-12 text-center>
-        <button type="submit" ion-button [disabled]="!accountForm.form.valid" (click)="announceService.createOrModifyAnnounce(accountForm)">
-          <span [hidden]="!(announceService.creation)">Créer l'annonce</span>
-          <span [hidden]="!(!announceService.creation && (announceService.stockInitial == 0 && announceService.ann.stock > 0))">Rouvrir l'annonce</span>
-          <span [hidden]="!(!announceService.creation && (announceService.stockInitial > 0 || announceService.ann.stock == announceService.stockInitial || announceService.ann.stock == ''))">Valider les modifications</span>
-        </button>
-        <button [hidden]="announceService.stockInitial == 0" type="submit" ion-button [disabled]="!accountForm.form.valid" color="danger" (click)="announceService.deleteAnnounce(accountForm)">Fermer l'annonce</button>
+      <ion-col col-12>
+
+
+        <ion-item>
+          <ion-label>Description</ion-label>
+          <ion-textarea required
+                        minlength="10"
+                        maxlength="10000"
+                        [(ngModel)]="announceService.ann.descParagraphe"
+                        name="desc"
+                        #desc="ngModel"
+                        placeholder="Tapez votre texte ici."></ion-textarea>
+        </ion-item>
+
+        <ion-label class="error" [hidden]="desc.valid || (desc.pristine && desc.untouched)">
+          <span [hidden]="!desc.errors || !desc.errors.required">Ce champ est requis.</span>
+          <span [hidden]="!desc.errors || !desc.errors.minlength">Au moins 10 caractères.</span>
+          <span [hidden]="!desc.errors || !desc.errors.maxlength">Au plus 100 caractères.</span>
+        </ion-label>
+
+        <p text-center>
+          <button type="submit" ion-button [disabled]="!accountForm.form.valid" (click)="announceService.createOrModifyAnnounce(accountForm)">
+            <span [hidden]="!(announceService.creation)">Créer l'annonce</span>
+            <span [hidden]="!(!announceService.creation && (announceService.stockInitial == 0 && announceService.ann.stock > 0))">Rouvrir l'annonce</span>
+            <span [hidden]="!(!announceService.creation && (announceService.stockInitial > 0 || announceService.ann.stock == announceService.stockInitial || announceService.ann.stock == ''))">Valider les modifications</span>
+          </button>
+          <button [hidden]="announceService.stockInitial == 0" type="submit" ion-button [disabled]="!accountForm.form.valid" color="danger" (click)="announceService.deleteAnnounce(accountForm)">Fermer l'annonce</button>
+        </p>
       </ion-col>
     </ion-row>
   </form>
