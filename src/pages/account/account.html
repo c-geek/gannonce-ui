@@ -1,7 +1,7 @@
 <ion-content padding>
 
   <ion-row>
-    <ion-col col-12>
+    <ion-col col-12 *ngIf="accountService.acc.title">
       <img class="logo" src="{{ accountService.acc.logo }}">
       <h2>{{ accountService.acc.title }}</h2>
       <pre>{{ accountService.acc.desc }}</pre>

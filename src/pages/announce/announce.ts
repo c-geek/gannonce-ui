@@ -20,6 +20,8 @@ export class AnnouncePage implements OnInit {
 
     if (this.route.snapshot.data.creation) {
       this.announceService.beginCreation(loginService.pub)
+    } else {
+      this.announceService.clean()
     }
   }
 

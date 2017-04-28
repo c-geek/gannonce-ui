@@ -28,6 +28,10 @@ export class AccountService {
     public loginService: LoginService,
     public authService: AuthService,
   ) {
+    this.clean()
+  }
+
+  clean() {
     this.acc = {}
   }
 

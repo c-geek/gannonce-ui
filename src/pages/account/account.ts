@@ -21,6 +21,8 @@ export class AccountPage implements OnInit {
 
     if (this.route.snapshot.data.creation) {
       this.accountService.beginCreation(loginService.pub)
+    } else {
+      this.accountService.clean()
     }
   }
 

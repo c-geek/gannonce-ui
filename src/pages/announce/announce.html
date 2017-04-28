@@ -1,7 +1,7 @@
 <ion-content padding>
 
   <ion-row>
-    <ion-col col-12>
+    <ion-col col-12 *ngIf="announceService.ann.title">
       <h2>{{ announceService.ann.title }}</h2>
       <p *ngIf="announceService.ann.images.length == 0">Pas d'images pour cette annnonce.</p>
       <p>
