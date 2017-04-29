@@ -41,16 +41,20 @@ export class LoginService {
             else if (!data.title.match(/[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{43,44}/)) {
               this.cleIncorrecte("Échec d'identification : '" + data.title + "' n'est pas une une clé publique valide.")
             } else {
-              localStorage.setItem('pub', data.title)
-              this.pub = data.title
-              this.estIdentifie = true
-              this.cleIncorrecte("Identification réussie.")
+              this.identify(data.title)
             }
           }
         }
       ]
     });
     prompt.present();
+  }
+
+  identify(pub:string) {
+    localStorage.setItem('pub', pub)
+    this.pub = pub
+    this.estIdentifie = true
+    this.cleIncorrecte("Identification réussie.")
   }
 
   cleIncorrecte(message) {

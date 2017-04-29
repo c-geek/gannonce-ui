@@ -1,8 +1,9 @@
 import {Component, OnInit} from "@angular/core";
-import {AccountService} from "../../services/account-service";
 import {LoginService} from "../../services/login-service";
-import {ActivatedRoute} from "@angular/router";
-import {AnnounceService} from "../../services/announce-service";
+import {ToastController} from "ionic-angular";
+import {CryptoService} from "../../services/crypo-service";
+import {Router} from "@angular/router";
+const base58 = require('../../lib/base58')
 
 @Component({
   selector: 'connect',
@@ -11,41 +12,48 @@ import {AnnounceService} from "../../services/announce-service";
 export class ConnectPage implements OnInit {
 
   title:string = "Se connecter"
-  announces:any
+  connectionType:string
+  pub:string
+  salt:string
+  passwd:string
 
   constructor(
-    private route: ActivatedRoute,
+    private router: Router,
     public loginService:LoginService,
-    public accountService:AccountService,
-    public announceService:AnnounceService) {
-
-    if (this.route.snapshot.data.creation) {
-      this.accountService.beginCreation(loginService.pub)
-    } else {
-      this.accountService.clean()
-    }
+    public cryptoService: CryptoService,
+    public toastCtrl: ToastController) {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      if (params['pub']) {
-        return this.accountService.getAccountInfos(params['pub'])
-          .then(res => this.accountService.acc = res.acc)
-          .then(() => {
-            return this.announceService.myAnnounces(this.accountService.acc.pub)
-          })
-          .then(res => {
-            this.announces = []
-            for (const a of res.announces) {
-              if (parseInt(a.stock)) {
-                if (a.images.length) {
-                  a.thumbnail = a.images[0]
-                }
-                this.announces.push(a)
-              }
-            }
-          })
+    this.connectionType = ""
+    this.pub = ""
+    this.salt = ""
+    this.passwd = ""
+  }
+
+  connect() {
+    if (this.connectionType == 'pubkey') {
+      if (!this.pub.match(/[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{43,44}/)) {
+        this.message("Échec d'identification : '" + this.pub + "' n'est pas une une clé publique valide.")
+      } else {
+        this.loginService.identify(this.pub)
+        this.router.navigate([`/mon_compte`])
       }
+    }
+    else if (this.connectionType == 'brainwallet') {
+      this.cryptoService.getKeyPair(this.salt, this.passwd)
+        .then((pair) => {
+          this.loginService.identify(base58.encode(pair.publicKey))
+          this.router.navigate([`/mon_compte`])
+        })
+    }
+  }
+
+  message(message) {
+    let toast = this.toastCtrl.create({
+      message,
+      duration: 3000
     });
+    toast.present();
   }
 }

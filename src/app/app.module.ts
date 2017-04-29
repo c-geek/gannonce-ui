@@ -27,6 +27,7 @@ import {AuthService} from "../services/auth-service";
 import {AuthModal} from "../components/auth_modal/auth_modal";
 import {AccountPage} from "../pages/account/account";
 import {ConnectPage} from "../pages/connect/connect";
+import {CryptoService} from "../services/crypo-service";
 
 const appRoutes: Routes = [
   {
@@ -121,6 +122,7 @@ const appRoutes: Routes = [
     AnnounceService,
     ImageService,
     AuthService,
+    CryptoService,
     {provide: APP_BASE_HREF, useValue: '/#/'},
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

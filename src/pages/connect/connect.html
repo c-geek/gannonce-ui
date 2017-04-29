@@ -1,12 +1,75 @@
 <ion-content padding>
 
   <ion-row>
-    <ion-col col-12>
+    <ion-col radio-group
+             [(ngModel)]="connectionType"
+             name="type"
+             #type="ngModel">
 
-      <p *ngIf="accountService.acc.pub == loginService.pub">
-        <button ion-button [routerLink]="['/account/edit', accountService.acc.pub]">Modifier votre fiche</button>
+      <h2>Identification</h2>
+
+      <p>
+        Vous pouvez vous identifier sur ğchange.
+      </p>
+      <p>
+        S'identifier permet de personnaliser la navigation et d'accéder à des menus concernant votre compte et vos annonces. Toutefois aucune action de modification ne sera disponible directement : pour modifier du contenu, vous devrez vous <b>authentifer</b> le moment venu.
+      </p>
+
+
+      <h4>Méthode</h4>
+      <ion-list>
+
+        <ion-item class="left-radio">
+          <ion-radio value="pubkey"></ion-radio>
+          <ion-label>Par clé publique</ion-label>
+        </ion-item>
+
+        <ion-item class="left-radio">
+          <ion-label>Par identifiants secrets</ion-label>
+          <ion-radio
+            value="brainwallet"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <ng-container *ngIf="connectionType == 'pubkey'">
+        <p>
+          <ion-label class="descriptif">C'est la méthode la plus simple et sans aucun risque : donnez une clé publique <b>que vous possédez</b> (si vous ne la possédez pas, vous ne pourrez faire aucune modification ensuite).</ion-label>
+        </p>
+        <ion-item>
+          <ion-label>Clé publique</ion-label>
+          <ion-input type="text"
+                     [(ngModel)]="pub"
+                     placeholder="Exemple : « AbsxSY4qoZRzyV2irfep1V9xw1EMNyKJw2TkuVD4N1mv »."></ion-input>
+        </ion-item>
+      </ng-container>
+
+      <ng-container *ngIf="connectionType == 'brainwallet'">
+        <p>
+          <ion-label class="descriptif">C'est une méthode avancée qui génère une clé publique à partir d'identifiants secrets. Cette méthode <b>générera temporairement la clé privée associée</b>, et l'oubliera immédaitement après l'identification.</ion-label>
+        </p>
+        <ion-item>
+          <ion-label>Identifiant secret</ion-label>
+          <ion-input type="password"
+                     [(ngModel)]="salt"
+                     placeholder="Tapez votre identifiant secret."></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Mot de passe</ion-label>
+          <ion-input type="password"
+                     [(ngModel)]="passwd"
+                     placeholder="Tapez votre mot de passe." ></ion-input>
+        </ion-item>
+      </ng-container>
+
+      <p>
+        <button ion-button
+                *ngIf="(connectionType == 'pubkey' || connectionType == 'brainwallet')"
+                [disabled]="!((connectionType == 'pubkey' && pub) || (connectionType == 'brainwallet' && salt && passwd))"
+        (click)="connect()">S'identifier</button>
       </p>
     </ion-col>
   </ion-row>
+
 
 </ion-content>

@@ -1,6 +1,6 @@
 <ion-content padding>
   <ng-container *ngIf="!loginService.pub">
-    <p>Vous êtes déconnecté. Vous pouvez néanmoins <button (click)="loginService.showPrompt()">vous reconnecter</button>.</p>
+    <p>Vous êtes déconnecté. Vous pouvez néanmoins <a routerLink="/connect">vous reconnecter</a>.</p>
   </ng-container>
   <ng-container *ngIf="loginService.pub">
 
