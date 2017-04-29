@@ -177,7 +177,7 @@
             <span [hidden]="!(!announceService.creation && (announceService.stockInitial == 0 && announceService.ann.stock > 0))">Rouvrir l'annonce</span>
             <span [hidden]="!(!announceService.creation && (announceService.stockInitial > 0 || announceService.ann.stock == announceService.stockInitial || announceService.ann.stock == ''))">Valider les modifications</span>
           </button>
-          <button [hidden]="announceService.stockInitial == 0" type="submit" ion-button [disabled]="!accountForm.form.valid" color="danger" (click)="announceService.deleteAnnounce(accountForm)">Fermer l'annonce</button>
+          <button [hidden]="announceService.creation || announceService.stockInitial == 0" type="submit" ion-button [disabled]="!accountForm.form.valid" color="danger" (click)="announceService.deleteAnnounce(accountForm)">Fermer l'annonce</button>
         </p>
       </ion-col>
     </ion-row>
