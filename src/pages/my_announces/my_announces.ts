@@ -10,7 +10,7 @@ import {AccountService} from "../../services/account-service";
 export class MyAnnouncesPage {
 
   announces:any = []
-  title:string = "Mes annonces"
+  titre:string = "Mes annonces"
 
   constructor(
     public loginService:LoginService,

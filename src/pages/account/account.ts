@@ -10,7 +10,7 @@ import {AnnounceService} from "../../services/announce-service";
 })
 export class AccountPage implements OnInit {
 
-  title:string = "Consulter un vendeur"
+  titre:string = "Consulter un vendeur"
   announces:any
 
   constructor(

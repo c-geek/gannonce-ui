@@ -10,7 +10,7 @@ import {AnnounceService} from "../../services/announce-service";
 })
 export class AnnounceEditPage implements OnInit {
 
-  title:string = "Éditer une annonce"
+  titre:string = "Éditer une annonce"
 
   constructor(
     private route: ActivatedRoute,

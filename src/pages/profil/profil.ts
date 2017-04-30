@@ -9,7 +9,7 @@ import {co} from "co";
 })
 export class ProfilPage {
 
-  title:string = "Mon profil"
+  titre:string = "Mon profil"
   enoughMoney:Boolean
 
   constructor(

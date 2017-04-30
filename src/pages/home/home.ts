@@ -7,7 +7,7 @@ import {AnnounceService} from "../../services/announce-service";
 })
 export class HomePage {
 
-  title:string = "Toutes les annonces"
+  titre:string = "Toutes les annonces"
   announces:Array<any>
 
   constructor(private announceService:AnnounceService) {

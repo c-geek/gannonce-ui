@@ -9,7 +9,7 @@ import {LoginService} from "../../services/login-service";
 })
 export class AccountEditPage implements OnInit {
 
-  title:string = "Créer ou modifier mon compte"
+  titre:string
 
   constructor(
     private route: ActivatedRoute,
@@ -22,10 +22,14 @@ export class AccountEditPage implements OnInit {
   }
 
   ngOnInit() {
+    this.titre = "Créer mon compte"
     this.route.params.subscribe(params => {
       if (params['pub']) {
         return this.accountService.getAccountInfos(params['pub'])
-          .then(res => this.accountService.acc = res.acc)
+          .then(res => {
+            this.accountService.acc = res.acc
+            this.titre = "Modifier mon compte"
+          })
       }
     });
   }

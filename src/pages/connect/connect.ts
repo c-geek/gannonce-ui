@@ -12,7 +12,7 @@ const base58 = require('../../lib/base58')
 })
 export class ConnectPage implements OnInit {
 
-  title:string = "Se connecter"
+  titre:string = "Se connecter"
   connectionType:string
   pub:string
   salt:string
