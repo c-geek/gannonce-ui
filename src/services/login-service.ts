@@ -69,6 +69,12 @@ export class LoginService {
     this.pub = ''
     this.estIdentifie = false
     localStorage.removeItem('pub')
+    sessionStorage.removeItem('salt')
+    sessionStorage.removeItem('passwd')
+    sessionStorage.removeItem('remember')
+    sessionStorage.removeItem('publicKey')
+    sessionStorage.removeItem('secretKey')
+    sessionStorage.removeItem('connectionType')
     this.cleIncorrecte("Déconnexion réussie.")
   }
 

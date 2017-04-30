@@ -56,10 +56,11 @@ export class AnnounceService {
     this.ann = {
       pub,
       uuid: uuid.v4(),
-      title: '',
-      desc: '',
-      price: '',
-      fees: '',
+      title: 'zertyuiosdfghjkl',
+      desc: 'fzhgoigjoierĵgoêrjgoijeroigjeroijgoirejgo',
+      descParagraphe: 'fzhgoigjoierĵgoêrjgoijeroigjeroijgoirejgo',
+      price: '28',
+      fees: '0',
       type: 'Simple',
       stock: '1',
       images: [

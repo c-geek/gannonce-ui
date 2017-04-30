@@ -28,6 +28,7 @@ import {AuthModal} from "../components/auth_modal/auth_modal";
 import {AccountPage} from "../pages/account/account";
 import {ConnectPage} from "../pages/connect/connect";
 import {CryptoService} from "../services/crypo-service";
+import {SafeUrlPipe} from "../directives/safe-url.pipe";
 
 const appRoutes: Routes = [
   {
@@ -92,6 +93,7 @@ const appRoutes: Routes = [
     ConnectPage,
     ImageCropperComponent,
     ItemDetailsPage,
+    SafeUrlPipe,
     ListPage
   ],
   imports: [

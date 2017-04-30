@@ -20,6 +20,11 @@
       <ion-list>
 
         <ion-item class="left-radio">
+          <ion-radio value="file"></ion-radio>
+          <ion-label>Par fichier trousseaux de clés</ion-label>
+        </ion-item>
+
+        <ion-item class="left-radio">
           <ion-radio value="pubkey"></ion-radio>
           <ion-label>Par clé publique</ion-label>
         </ion-item>
@@ -30,6 +35,25 @@
             value="brainwallet"></ion-radio>
         </ion-item>
       </ion-list>
+
+      <h3>Détails</h3>
+
+      <ng-container *ngIf="connectionType == 'file'">
+        <p>
+          <ion-label class="descriptif">Permet de se connecter en fournissant le fichier contenant votre trousseau de clés.</ion-label>
+        </p>
+        <div class="upload">
+          <input id="custom-input" type="file" (change)="fileChangeListener($event)">
+          <label for="custom-input" ion-button>Charger le fichier trousseau...</label>
+        </div>
+
+        <p class="help">
+          Si vous n'avez pas encore de trousseau de clés ou que vous souhaitez en obtenir un nouveau, vous pouvez également <b>générer un nouveau trousseau</b>.
+        <br>
+        <br>
+          <a ion-button small download="gannonce.yml" [href]="randomKeyring | safeUrl">Générer et télécharger un nouveau trousseau</a>
+        </p>
+      </ng-container>
 
       <ng-container *ngIf="connectionType == 'pubkey'">
         <p>
