@@ -45,6 +45,10 @@
         <div class="upload">
           <input id="custom-input" type="file" (change)="fileChangeListener($event)">
           <label for="custom-input" ion-button>Charger le fichier trousseau...</label>
+          <ion-item>
+            <ion-checkbox color="royal" [(ngModel)]="remember" checked="false"></ion-checkbox>
+            <ion-label>Mémoriser ce trousseau le temps de la session de navigation</ion-label>
+          </ion-item>
         </div>
 
         <p class="help">

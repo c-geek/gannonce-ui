@@ -17,6 +17,7 @@ export class ConnectPage implements OnInit {
   pub:string
   salt:string
   passwd:string
+  remember:Boolean
 
   constructor(
     private router: Router,
@@ -59,8 +60,13 @@ export class ConnectPage implements OnInit {
   }
 
   fileChangeListener($event) {
-    this.cryptoService.loadFromFile($event, false)
+    this.cryptoService.loadFromFile($event, this.remember)
       .then(pair => {
+        if (this.remember) {
+          sessionStorage.setItem('publicKey', base58.encode(pair.publicKey))
+          sessionStorage.setItem('secretKey', base58.encode(pair.secretKey))
+          sessionStorage.setItem('remember', "1")
+        }
         this.loginService.identify(base58.encode(pair.publicKey))
         this.router.navigate([`/mon_compte`])
       })
