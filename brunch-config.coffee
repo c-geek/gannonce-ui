@@ -11,7 +11,18 @@ module.exports = config:
   files:
     javascripts:
       joinTo:
-        'vendor.js': /^node_modules/,
+        'angular.js': /^node_modules\/@angular/,
+        'ionic.js': /^node_modules\/(@ionic|ionic-angular)/,
+        'types.js': /^node_modules\/@types/,
+        'crypto.js': /^node_modules\/(tweet|scrypt)/,
+        'vendor.js': (path) ->
+          path.startsWith('node_modules') &&
+          !path.startsWith('node_modules/@angular') &&
+          !path.startsWith('node_modules/@ionic') &&
+          !path.startsWith('node_modules/ionic') &&
+          !path.startsWith('node_modules/@types') &&
+          !path.startsWith('node_modules/tweet') &&
+          !path.startsWith('node_modules/scrypt')
         'main.js': /^src/
       order:
         after: [/\.html$/, /\.css$/]
@@ -21,6 +32,10 @@ module.exports = config:
     templates: joinTo: 'templates.js'
 
   plugins:
+    uglify:
+      mangle: true
+      compress: true
+      ignored: /main\.js/
     inlineCss: {
       html: true
     },
@@ -31,6 +46,7 @@ module.exports = config:
     },
     copycat: {
       "fonts" : ["node_modules/ionic-angular/fonts"],
+
       verbose : false,
       onlyChanged: true
     }
