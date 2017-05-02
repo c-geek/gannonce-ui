@@ -36,7 +36,7 @@
 
         <h3>Paiement</h3>
         <h5>Via Cesium</h5>
-        <a target="_blank" href="https://g1.duniter.fr/#/app/transfer/{{ announceService.ann.pub }}">Lien de paiement</a>
+        <a target="_blank" href="https://g1.duniter.fr/#/app/transfer/{{ announceService.ann.pub }}?amount=10&comment=GANNONCE:CROWDF:{{ announceService.ann.uuid }}">Lien de paiement</a>
         <h5>Via Sakia</h5>
         Envoyer de la monnaie :
         <ul>
@@ -51,7 +51,7 @@
       <ng-container *ngIf="announceService.ann.type != 'Crowdfunding'">
         <h3>Paiement</h3>
         <h5>Via Cesium</h5>
-        <a target="_blank" href="https://g1.duniter.fr/#/app/transfer/{{ announceService.ann.pub }}">Lien de paiement</a>
+        <a target="_blank" href="https://g1.duniter.fr/#/app/transfer/{{ announceService.ann.pub }}?amount=10&comment=GANNONCE:ANN:{{ announceService.ann.uuid }}">Lien de paiement</a>
         <h5>Via Sakia</h5>
         Envoyer de la monnaie :
         <ul>
