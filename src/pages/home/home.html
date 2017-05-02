@@ -9,15 +9,22 @@
     Dernières annonces
   </ion-list-header>
   <ion-list id="home-list" *ngIf="announces.length > 0">
-    <button ion-item *ngFor="let a of announces" routerLink="/announce/{{ a.uuid }}">
+    <button ion-item class="ligne" *ngFor="let a of announces" routerLink="/announce/{{ a.uuid }}">
       <ion-avatar item-left>
         <img *ngIf="a.thumbnail" src="{{ a.thumbnail }}">
         <div class="nophoto" *ngIf="!a.thumbnail">
           <ion-icon name="photos"></ion-icon>
         </div>
       </ion-avatar>
-      <h2>{{ a.title }} • <span class="author">{{ a.account.title }}</span></h2>
-      <p>{{ a.descLigne }}</p>
+      <ion-col item-right>
+        <h2>{{ a.title }} • <span class="author">{{ a.account.title }}</span></h2>
+        <p>{{ a.descLigne }}</p>
+      </ion-col>
+      <ion-col item-right class="range-col" *ngIf="a.type == 'Crowdfunding'" text-center [ngClass]="{ 'nothing': !a.pctFunded, 'success': a.pctFunded >= 100, 'successing': a.pctFunded >= 50 && a.pctFunded < 100, 'starting': a.pctFunded >= 10 && a.pctFunded < 50 }">
+        <span>Financé à {{ a.pctFunded }} %</span>
+        <ion-range [(ngModel)]="a.pctFunded" disabled>
+        </ion-range>
+      </ion-col>
       <h3 clear item-right>{{ a.price }} Ğ1</h3>
     </button>
   </ion-list>

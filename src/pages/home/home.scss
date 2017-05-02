@@ -13,4 +13,36 @@ home {
     font-size: 13px;
     color: #588fee;
   }
+
+  .ligne > .item-inner > .input-wrapper {
+    flex: 0;
+  }
+
+  .col {
+    height: 50px;
+    text-overflow: ellipsis;
+
+    p {
+      height: 16px;
+      overflow: hidden;
+    }
+  }
+
+  ion-range {
+    width: 90px !important;
+  }
+
+  ion-range.range-md {
+    padding: 0;
+    height: 24px;
+  }
+
+  .range-col {
+    width: 300px;
+    flex: 0;
+  }
+
+  .range-col > span {
+    font-size: 12px;
+  }
 }

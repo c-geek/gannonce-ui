@@ -29,6 +29,7 @@ import {AccountPage} from "../pages/account/account";
 import {ConnectPage} from "../pages/connect/connect";
 import {CryptoService} from "../services/crypo-service";
 import {SafeUrlPipe} from "../directives/safe-url.pipe";
+import {CrowdfundingService} from "../services/crowdfunding-service";
 
 const appRoutes: Routes = [
   {
@@ -125,6 +126,7 @@ const appRoutes: Routes = [
     ImageService,
     AuthService,
     CryptoService,
+    CrowdfundingService,
     {provide: APP_BASE_HREF, useValue: '/#/'},
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

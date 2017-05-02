@@ -8,4 +8,22 @@ announce {
     font-size: 25px;
     color: coral;
   }
+
+  .financed {
+    margin: 0;
+  }
+
+  ion-range {
+    padding: 0 !important;
+  }
+
+  ul {
+    margin-top: 0;
+    padding-top: 0;
+    padding-left: 30px;
+  }
+
+  li {
+    padding: 5px;
+  }
 }

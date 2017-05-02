@@ -21,10 +21,26 @@
       <p class="fees" *ngIf="announceService.ann.feesFloat">
         +{{ announceService.ann.fees }} Ğ1 (frais de transport)
       </p>
+      <ng-container *ngIf="announceService.ann.type == 'Crowdfunding'">
+        <h3>Financement (crowdfunding)</h3>
+        <ion-col item-right class="range-col" text-center [ngClass]="{ 'nothing': !announceService.ann.pctFunded, 'success': announceService.ann.pctFunded >= 100, 'successing': announceService.ann.pctFunded >= 50 && announceService.ann.pctFunded < 100, 'starting': announceService.ann.pctFunded >= 10 && announceService.ann.pctFunded < 50 }">
+          <h4 class="financed">Financé à {{ announceService.ann.pctFunded }} %</h4>
+          <ion-range [(ngModel)]="announceService.ann.pctFunded" disabled>
+          </ion-range>
+        </ion-col>
+        <ul>
+          <li *ngFor="let p of announceService.ann.montants">
+            Paiement de {{ (p.amount / 100).toFixed(2) }} Ğ1 par {{ p.issuer }}
+          </li>
+        </ul>
+      </ng-container>
       <h3>Paiement à</h3>
       <input class="pubkey" type="text" disabled value="{{ announceService.ann.pub }}">
       <h3>Stock</h3>
-      <p>
+      <p *ngIf="announceService.ann.stock == 1">
+        1 unité disponible.
+      </p>
+      <p *ngIf="announceService.ann.stock > 1">
         {{ announceService.ann.stock }} unités disponibles.
       </p>
 

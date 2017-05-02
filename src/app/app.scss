@@ -99,3 +99,45 @@ input.pubkey {
     display: none;
   }
 }
+
+
+
+.success {
+  color: green;
+
+  .range-bar {
+    background: #00b200 !important;
+  }
+
+  .range-knob {
+    background: #00b200 !important;
+  }
+}
+
+.successing {
+  color: orange;
+
+  .range-bar {
+    background: #fe6e11 !important;
+  }
+
+  .range-knob {
+    background: #fe6e11 !important;
+  }
+}
+
+.starting {
+  color: #aeae00;
+
+  .range-bar {
+    background: #dfdf00 !important;
+  }
+
+  .range-knob {
+    background: #dfdf00 !important;
+  }
+}
+
+.nothing {
+  color: gray;
+}
