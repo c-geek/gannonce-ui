@@ -18,12 +18,15 @@ announce {
   }
 
   ul {
-    margin-top: 0;
-    padding-top: 0;
     padding-left: 30px;
   }
 
   li {
     padding: 5px;
+  }
+
+  .code {
+    font-family: Courier;
+    background-color: #eee;
   }
 }

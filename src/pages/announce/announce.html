@@ -33,9 +33,35 @@
             Paiement de {{ (p.amount / 100).toFixed(2) }} Ğ1 par {{ p.issuer }}
           </li>
         </ul>
+
+        <h3>Paiement</h3>
+        <h5>Via Cesium</h5>
+        <a target="_blank" href="https://g1.duniter.fr/#/app/transfer/{{ announceService.ann.pub }}">Lien de paiement</a>
+        <h5>Via Sakia</h5>
+        Envoyer de la monnaie :
+        <ul>
+          <li>à la clé publique <span class="code">{{ announceService.ann.pub }}</span></li>
+          <li>avec commentaire <span class="code">GANNONCE:CROWDF:{{ announceService.ann.uuid }}</span> pour le suivi du crowdfunding</li>
+        </ul>
+        <h5>Via Silkaj</h5>
+        <p>Lancer la commande suivante :</p>
+        <span class="code">./silkaj transaction --auth-scrypt --amount={{ announceService.ann.price }} --output={{ announceService.ann.pub }} --comment="GANNONCE:CROWDF:{{ announceService.ann.uuid }}"</span>
+
       </ng-container>
-      <h3>Paiement à</h3>
-      <input class="pubkey" type="text" disabled value="{{ announceService.ann.pub }}">
+      <ng-container *ngIf="announceService.ann.type != 'Crowdfunding'">
+        <h3>Paiement</h3>
+        <h5>Via Cesium</h5>
+        <a target="_blank" href="https://g1.duniter.fr/#/app/transfer/{{ announceService.ann.pub }}">Lien de paiement</a>
+        <h5>Via Sakia</h5>
+        Envoyer de la monnaie :
+        <ul>
+          <li>à la clé publique <span class="code">{{ announceService.ann.pub }}</span></li>
+        </ul>
+        <h5>Via Silkaj</h5>
+        <p>Lancer la commande suivante :</p>
+        <span class="code">./silkaj transaction --auth-scrypt --amount={{ announceService.ann.price }} --output={{ announceService.ann.pub }} --comment="GANNONCE:ANN:{{ announceService.ann.uuid }}"</span>
+      </ng-container>
+
       <h3>Stock</h3>
       <p *ngIf="announceService.ann.stock == 1">
         1 unité disponible.

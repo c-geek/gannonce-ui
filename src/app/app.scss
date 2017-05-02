@@ -1,3 +1,7 @@
+body {
+  user-select: text !important;
+}
+
 router-outlet + * {
   width: 100%;
 }
