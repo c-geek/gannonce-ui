@@ -113,6 +113,10 @@ export class AnnounceService {
       })
   }
 
+  resetImages() {
+    this.ann.images.pop()
+  }
+
   rawify(a) {
     let raw = 'Version: 1\n'
     raw += `Document: Announce\n`
