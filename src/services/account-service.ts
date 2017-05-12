@@ -11,8 +11,9 @@ const uuid = require('uuid')
 const tweetnacl = require('tweetnacl')
 const tweetnaclUtil = require('tweetnacl-util')
 const base58 = require('../lib/base58')
+const conf = require('../lib/conf.js')
 
-const ACCOUNT_URL = 'http://l:8600/account'
+const ACCOUNT_URL = conf.baseUrl + '/account'
 
 @Injectable()
 export class AccountService {

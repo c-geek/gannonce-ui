@@ -10,9 +10,10 @@ const uuid = require('uuid')
 const tweetnacl = require('tweetnacl')
 const tweetnaclUtil = require('tweetnacl-util')
 const base58 = require('../lib/base58')
+const conf = require('../lib/conf.js')
 
-const ANNOUNCE_URL = 'http://l:8600/announce'
-const ANNOUNCES_URL = 'http://l:8600/announces'
+const ANNOUNCE_URL = conf.baseUrl + '/announce'
+const ANNOUNCES_URL = conf.baseUrl + '/announces'
 
 @Injectable()
 export class AnnounceService {
