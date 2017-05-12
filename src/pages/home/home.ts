@@ -14,7 +14,6 @@ export class HomePage {
   constructor(private announceService:AnnounceService, private crowdfundingService:CrowdfundingService) {
     this.announces = []
     this.announceService.listAllAnnounces().then(announces => this.announces = announces.map(a => {
-      a.thumbnail = a.images[0]
       a.descLigne = a.desc.replace(/\\n/g, ' ')
       a.pctFunded = this.crowdfundingService.getFundingAmount(a)
       return a
