@@ -19,7 +19,6 @@ export class MyAnnouncesPage {
 
     this.announceService.myAnnounces(loginService.pub)
       .then(res => this.announces = res.announces.map(a => {
-        a.thumbnail = a.images[0]
         return a
       }))
   }
