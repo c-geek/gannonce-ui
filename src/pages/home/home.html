@@ -1,9 +1,26 @@
 <ion-content padding>
+  <ion-searchbar
+    *ngIf="searchEnabled"
+    [(ngModel)]="search"
+    (ionInput)="onInput($event)"
+    (ionCancel)="onCancel($event)"
+    debounce="750"
+    showCancelButton="true"
+    cancelButtonText="Annuler"
+    placeholder="Titre, vendeur, description, ..."
+    (blur)="onBlur()"
+    #searchbar>
+  </ion-searchbar>
 
-  <ng-container *ngIf="announces.length == 0">
+  <ng-container *ngIf="loading">
     <ion-spinner></ion-spinner>
     <ion-label>Chargement...</ion-label>
   </ng-container>
+  <div class="pagination" *ngIf="announces.length == 0">
+    <span *ngIf="search && search.length > 2">Aucune annonce trouvée pour « {{ search }} ».</span>
+    <span *ngIf="search && search.length <= 2">Tapez au moins 3 caractères de recherche.</span>
+    <span *ngIf="!search"></span>
+  </div>
 
   <div class="pagination" *ngIf="announces.length > 0">
     <button ion-button small color="light" *ngIf="announces.length > 0" (click)="prevPage()" [disabled]="page == 1">
@@ -19,8 +36,11 @@
       <option value="{{ lim }}" *ngFor="let lim of limits">{{ lim }} annonces par page</option>
     </select>
   </div>
-  <ion-list-header *ngIf="announces.length > 0">
+  <ion-list-header *ngIf="announces.length > 0 && !search">
     Dernières annonces
+  </ion-list-header>
+  <ion-list-header *ngIf="announces.length > 0 && search">
+    Résultats de la recherche
   </ion-list-header>
   <ion-list id="home-list" *ngIf="announces.length > 0">
     <button ion-item class="ligne" *ngFor="let a of announces" routerLink="/announce/{{ a.uuid }}">

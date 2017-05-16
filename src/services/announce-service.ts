@@ -85,8 +85,8 @@ export class AnnounceService {
       })
   }
 
-  listAllAnnounces(limit, page) {
-    return this.http.get(ANNOUNCES_URL + '?limit=' + limit + '&page=' + page)
+  listAllAnnounces(limit, page, search) {
+    return this.http.get(ANNOUNCES_URL + '?limit=' + limit + '&page=' + page + '&search=' + encodeURIComponent(search))
       .toPromise()
       .then((res) => {
         return res.json()
