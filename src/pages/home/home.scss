@@ -45,4 +45,34 @@ home {
   .range-col > span {
     font-size: 12px;
   }
+
+  .pagination {
+    margin-bottom: 0.9em;
+  }
+
+  .pagination ion-label {
+    display: inline;
+    position: relative;
+    top: 4px;
+    padding: 0 0.9em 0 0.9em;
+    height: 2.1em;
+    font-size: 1.3rem;
+    margin: 0.9em 0;
+  }
+
+  .pagination select {
+    float: right;
+    position: relative;
+    top: 4px;
+    padding: 0 0.9em;
+    height: 2.1em;
+    font-size: 1.3rem;
+    overflow: hidden;
+    margin-left: 0.2em;
+    border-radius: 2px;
+    font-weight: 500;
+    color: #000;
+    background-color: #f4f4f4;
+    box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 0px 0 rgba(0, 0, 0, 0.12);
+  }
 }

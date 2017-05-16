@@ -5,6 +5,20 @@
     <ion-label>Chargement...</ion-label>
   </ng-container>
 
+  <div class="pagination" *ngIf="announces.length > 0">
+    <button ion-button small color="light" *ngIf="announces.length > 0" (click)="prevPage()" [disabled]="page == 1">
+      <ion-icon name="arrow-back"></ion-icon>
+    </button>
+    <ion-label>
+      Page {{ page }}/{{ pages }}
+    </ion-label>
+    <button ion-button small color="light" *ngIf="announces.length > 0" (click)="nextPage()" [disabled]="page == pages">
+      <ion-icon name="arrow-forward"></ion-icon>
+    </button>
+    <select [(ngModel)]="limit" (change)="updatePage()">
+      <option value="{{ lim }}" *ngFor="let lim of limits">{{ lim }} annonces par page</option>
+    </select>
+  </div>
   <ion-list-header *ngIf="announces.length > 0">
     Dernières annonces
   </ion-list-header>
