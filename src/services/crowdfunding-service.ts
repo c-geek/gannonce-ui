@@ -22,7 +22,7 @@ export class CrowdfundingService {
     const montants = []
     for (const tx of (a.payments || [])) {
       for(const output of tx.outputs) {
-        if (output.match(new RegExp(":SIG\\(" + a.pub + "\\)"))) {
+        if ((output.conditions || output).match(new RegExp(":SIG\\(" + a.pub + "\\)"))) {
           const sp = output.split(':')
           const amount = parseInt(sp[0])
           const base = parseInt(sp[1])
